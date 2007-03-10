@@ -61,6 +61,19 @@
     colorlinks=false,
     ]{hyperref}
 
+% NOTE: If you use natbib, then you are in luck.  There is a neat little hack I
+% cooked up to get "References" to show up in your TOC (I hate it, so I don't
+% use it, but Dan Delorey apparently needed to) and to bookmark correctly.
+% Between \usepackage{natbib} and \begin{document}, put the following lines:
+%
+% \let\oldbibsection\bibsection
+% \renewcommand{\bibname}{References}
+% \renewcommand{\bibsection}{%
+%   \oldbibsection\addcontentsline{toc}{part}{References}}
+%
+% That's it!  I didn't include it in the class file because bibliography usage
+% is so very idiosyncratic.
+
 % Because I use these things in more than one place, I created new commands for
 % them.  I did not use \providecommand because I absolutely want LaTeX to error
 % out if these already exist.
