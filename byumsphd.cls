@@ -26,7 +26,7 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.6
+% Version: 1.0.7
 %
 % Changelog:
 %   Chris Monson (2007-03-10):
@@ -36,6 +36,10 @@
 %       *   Inserted pdfbookmark commands per Dan Delorey (new requirements)
 %       *   Later bumped version to 1.0.6
 %       *   Added an option to put an entry for References into the TOC
+%       *   Later bumped version to 1.0.7
+%       *   Reverted the addition of refintoc.  There is an easier way in the
+%           document itself, and it is too dependent on the particular
+%           bibliography environment used.
 %   Chris Monson (2007-03-09):
 %       *   Bumped version to 1.0.4
 %       *   Added the LGPL as an alternate license
@@ -59,7 +63,6 @@
 \newif\if@compliantsizes % for headings no larger than 12 pt (ugly)
 \newif\if@lof % Show list of figures?
 \newif\if@lot % Show list of tables?
-\newif\if@refintoc % Show References in Table of Contents?
 \newif\if@needdrawing % Need the eso-pic environment?  Drawing something?
 \newif\if@layout % This will draw lines showing all the margins
 \newif\if@grid % Show a grid
@@ -93,7 +96,6 @@
 \DeclareOption{nochapternum}{\@chapternumfalse}
 \DeclareOption{lof}{\@loftrue}
 \DeclareOption{lot}{\@lottrue}
-\DeclareOption{refintoc}{\@refintoctrue}
 \DeclareOption{layout}{\@needdrawingtrue \@layouttrue}
 \DeclareOption{grid}{\@needdrawingtrue \@gridtrue}
 \DeclareOption{separator}{\@separatortrue}
@@ -112,9 +114,6 @@
 % Default to NOT showing lists of figures and tables
 \@loffalse
 \@lotfalse
-% Also default to not including references in a table of contents.  That's a
-% weird requirement
-\@refintocfalse
 % Default to PhD
 \@thesisfalse
 % Don't show the layout, usually
@@ -724,9 +723,6 @@
 \let\old@bibliography\bibliography
 \renewcommand{\bibliography}[1]{%
     \onehalfspace\par
-    \if@refintoc
-      \addcontentsline{toc}{part}{References}%
-    \fi
     \old@bibliography{#1}%
 }%
 %
