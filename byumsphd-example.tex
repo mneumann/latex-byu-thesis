@@ -1,0 +1,227 @@
+\documentclass[letterpaper,phd,prettyheadings,chaptercenter,parttop]{byumsphd}
+% Options for this class include the following (* indicates default):
+%
+%   letterpaper -- ignored, but helpful for the Makefile that I use
+%
+%   10pt -- 10 point font size
+%   11pt -- 11 point font size
+%   12pt (*) -- 12 point font size
+%
+%   phd (*) -- produce a dissertation
+%   ms -- produce a thesis
+%
+%   lof -- produce a list of figures in the preamble (off)
+%   lot -- produce a list of tables in the preamble (off)
+%
+%   layout -- show layout lines on the pages, helps with overfull boxes (off)
+%   grid -- show a half-inch grid on every page, helps with printing (off)
+%   separator -- print an extra instruction page between preamble and body (off)
+%
+%   twoside (*) -- two-sided output (margins alternate for odd and even pages)
+%   oneside -- one-sided output (margins are the same on all pages)
+%
+%   openright (*) -- force new chapters to start on an odd page
+%   openany -- don't use this, it's ugly
+%
+%   prettyheadings -- make the section/chapter headings look nice
+%   compliantheadings -- make them look ugly, but compliant with standards
+%
+%   chaptercenter -- center the chapter headings horizontally
+%   chapterleft -- place
+%
+%   partmiddle -- Part headers are centered vertically, no other text on page
+%   parttop -- Part headers at top of page, other text expected
+
+
+% This command fixes my particular printer, which starts 0.03 inches too low,
+% shifting the whole page down by that amount.  This shifts the document
+% content up so that it comes out right when printed.
+%
+% Discovering this sort of behavior is best done by specifying the ``grid''
+% option in the class parameters above.  It prints a 1/2 inch grid on every
+% page.  You can then use a ruler to determine exactly what the printer is
+% doing.
+%
+% Uncomment to shift content up (accounting for printer problems)
+%\setlength{\voffset}{-.03in}
+
+% Here we set things up for invisible hyperlinks in the document.  This makes
+% the electronic version clickable without changing the way that the document
+% prints.  It's useful, but optional.
+\usepackage[
+    ps2pdf,
+    bookmarks=true,
+    breaklinks=false,
+    raiselinks=true,
+    pdfborder={0 0 0},
+    colorlinks=false,
+    ]{hyperref}
+
+% Because I use these things in more than one place, I created new commands for
+% them.  I did not use \providecommand because I absolutely want LaTeX to error
+% out if these already exist.
+\newcommand{\Title}{BYU MS/PhD {\LaTeX} Class Dissertation Example}
+\newcommand{\Author}{Christopher K. Monson}
+\newcommand{\GraduationMonth}{March}
+\newcommand{\GraduationYear}{2006}
+
+% Set up the internal PDF information so that it becomes part of the document
+% metadata.  The pdfinfo command will display this.
+\hypersetup{%
+    pdftitle=\Title,%
+    pdfauthor=\Author,%
+    pdfsubject={PhD Dissertation, BYU CS Department: %
+                Degree Granted \GraduationMonth~\GraduationYear, Document Created \today},%
+    pdfkeywords={BYU, thesis, dissertation, LaTeX},%
+}
+
+% Rewrite the itemize, description, and enumerate environments to have more
+% reasonable spacing:
+\newcommand{\ItemSep}{\itemsep 0pt}
+\let\oldenum=\enumerate
+\renewcommand{\enumerate}{\oldenum \ItemSep}
+\let\olditem=\itemize
+\renewcommand{\itemize}{\olditem \ItemSep}
+\let\olddesc=\description
+\renewcommand{\description}{\olddesc \ItemSep}
+
+% Important settings for the byumsphd class.
+\title{\Title}
+\author{\Author}
+
+\committeechair{Esteem D. Adviser}
+\committeemembera{Has A. Thought}
+\committeememberb{Wants A. Change}
+\committeememberc{Attends A. Meeting}
+\committeememberd{Will B. Present}
+
+\monthgraduated{\GraduationMonth}
+\yeargraduated{\GraduationYear}
+\yearcopyrighted{\GraduationYear}
+
+\documentabstract{%
+    This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.  It is meant to replace the old ECEn style file that has been circulating for many years.
+}
+
+\acknowledgments{%
+    Thanks go to the ECEn style file authors for providing both a reasonable initial style and the motivation to abandon it.
+}
+
+\department{Computer Science}
+\graduatecoordinator{Parris K. Egbert}
+\collegedean{Thomas W. Sederberg}
+\collegedeantitle{Associate Dean}
+
+% Remove all widows an orphans.  This is not normally recommended, but in a
+% paper dissertation there is no reasonable way around it; you can't exactly
+% rewrite already-published content to fix the problem.
+\clubpenalty 10000
+\widowpenalty 10000
+
+% Allow pages to have extra blank space at the bottom in order to accommodate
+% removal of widows and orphans.
+\raggedbottom
+
+% Get a little less fussy about word spacing on a line.  Sometimes produces
+% ugly results, so keep your eyes peeled.
+\sloppy
+
+\begin{document}
+
+% Produce the preamble
+\maketitle
+
+\chapter{Use of the ``byumsphd'' {\LaTeX} Class}
+
+To use this package, you must first declare it as your document class
+\begin{verbatim}
+    \documentclass[<options>]{byumsphd}
+\end{verbatim}
+then put the \verb|\maketitle| command at the beginning of your document and add the remaining content.  This class is meant to ensure that the last part really is the hard part; nobody wants to go through years of research and hard work only to discover that their margins are next to impossible to get right.
+
+The class declaration is, of course, not all that is required.  Several things must be specified in the preamble of your document before the appropriate preface material can be generated.  Each of these is discussed within its own section.
+
+\section{Class Options}
+
+This class has several options that affect document output in various ways.  These are described in detail here.
+
+\begin{itemize}
+    \item Document Type:
+        \begin{itemize}
+            \item \textbf{phd (default)}: Produce a dissertation
+            \item \textbf{ms} Produce a thesis 
+        \end{itemize}
+\pagebreak
+    \item Font Size:
+        \begin{itemize}
+            \item \textbf{10pt}
+            \item \textbf{11pt}
+            \item \textbf{12pt (default)}
+        \end{itemize}
+    \item Preamble Settings:
+        \begin{itemize}
+            \item \textbf{lot}: Produce a List of Tables (default off)
+            \item \textbf{lof}: Produce a List of Figures (default off)
+        \end{itemize}
+    \item Page Formatting:
+        \begin{itemize}
+            \item \textbf{twoside (default)}: Alternate margins for even and odd pages
+            \item \textbf{oneside}: Same margins for every page
+            \item \textbf{openright (default)}: Chapters start on an odd page
+            \item \textbf{openany}: Chapters start anywhere (tip: don't use this)
+        \end{itemize}
+    \item Miscellaneous Layout:
+        \begin{itemize}
+            \item \textbf{prettyheadings (default)}: Allow larger font sizes for chapter, part, and section headings.  If you can get away with it, use this.
+            \item \textbf{compliantheadings}: Use the same font size for everything -- ugly, but compliant with the minimum style requirements.
+            \item \textbf{chapterleft (default)}: Chapter headings are left justified
+            \item \textbf{chaptercenter}: Chapter headings are centered
+            \item \textbf{partmiddle (default)}: Part headings are vertically centered
+            \item \textbf{parttop}: Part headings are near the top of the page, appropriate if each part contains introductory text.
+        \end{itemize}
+\pagebreak
+    \item Visualization Aids (all default to off):
+        \begin{itemize}
+            \item \textbf{layout}: Display dotted lines for help with layouts.  Shows the margins (helpful for finding overfull hboxes, etc.)
+            \item \textbf{grid}: Display a \( 1/2 \)-inch grid on every page.  When printing your document, use this on one of the pages to find out whether the printer shifts things down or not.  My printer shifts everything down by \( 0.03 \) inches, which doesn't sound like a lot, but can make a huge difference, especially considering that paper is not actually \( 8 1/2 \) by \( 11 \), but a little smaller than that in each dimension.
+            \item \textbf{separator}: Output an extra instruction page in between the preamble and the body of the document.  Even if the document is two-sided, the preamble \emph{never} is, so this page reminds you or the printing service that this is the case while giving appropriate instructions for the remainder of the document.  It \emph{will not print} if the document is all one-sided (there's no point, really), and it should \emph{never} be included in your final copies of the document, but discarded during printing.  If it is not discarded, it is probably harmless since you can just throw it away after getting copies made.
+        \end{itemize}
+\end{itemize}
+
+\section{Preamble Setup Commands}
+
+In order to produce a correct preamble, several things must be set, and others can optionally be added.  The settings described next affect the behavior of \verb|\maketitle|.  These are required:
+\begin{itemize}
+    \item \verb|\title{<your document title>}|
+    \item \verb|\committeechair{<your adviser's name>}|
+    \item \verb|\committeemembera{<second member>}|
+    \item \verb|\committeememberb{<third member>}|
+    \item \verb|\committeememberc{<fourth member (PhD only)>}|
+    \item \verb|\committeememberd{<fifth member (PhD only)>}|
+    \item \verb|\monthgraduated{<month of graduation>}|
+    \item \verb|\yeargraduated{<hopefully this year>}|
+    \item \verb|\documentabstract{<your thesis abstract goes here>}|
+\end{itemize}
+The following are optional or have defaults suitable for CS majors:
+\begin{itemize}
+    \item \verb|\yearcopyrighted{<defaults to year graduated>}|
+    \item \verb|\acknowledgments{<the text of your acknowledgments goes here>}|
+    \item \verb|\university{<default: Brigham Young University>}|
+    \item \verb|\department{<default: Computer Science>}|
+    \item \verb|\graduatecoordinator{<default: Parris K. Egbert>}|
+    \item \verb|\college{<default: Physical and Mathematical Sciences>}|
+    \item \verb|\collegedean{<default: Thomas W. Sederberg>}|
+    \item \verb|\collegedeantitle{<default: Associate Dean>}|
+\end{itemize}
+
+\chapter{Parting Shots}
+
+If you are interested in getting a handle on what the class is doing, read the source; it is heavily commented and frankly one of the easiest-to-understand classes I have ever seen.  It uses a minimum of deep {\TeX} trickery to accomplish its designs.
+
+If you would like an enhancement made to it, you are welcome to do it yourself or to contact the author; information is available in the class file comments.  License information is also available there, but boils down to basically this: you can do what you like with this file, but if you change it, change the name.  If you have a change that you think belongs in the main distribution, contact the author and it will most likely be included in the official class file.
+
+Please enjoy, and note all kinds of feedback are welcome, especially the kinds that involve deposits into the author's bank account.
+
+\end{document}
+
+% vim: lbr
