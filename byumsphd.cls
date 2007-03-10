@@ -26,10 +26,11 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.3
+% Version: 1.0.4
 %
 % Changelog:
 %   Chris Monson (2007-03-09):
+%       *   Bumped version to 1.0.4
 %       *   Added the LGPL as an alternate license
 %   Chris Monson (2007-02-01):
 %       *   Created a version number and bumped it to 1.0.3
