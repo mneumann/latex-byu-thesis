@@ -26,7 +26,7 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.5
+% Version: 1.0.6
 %
 % Changelog:
 %   Chris Monson (2007-03-10):
