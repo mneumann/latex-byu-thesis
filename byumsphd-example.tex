@@ -1,4 +1,8 @@
 \documentclass[letterpaper,phd,prettyheadings,chaptercenter,parttop]{byumsphd}
+% Author: Chris Monson
+%
+% This document is in the public domain
+%
 % Options for this class include the following (* indicates default):
 %
 %   letterpaper -- ignored, but helpful for the Makefile that I use
@@ -62,8 +66,8 @@
 % out if these already exist.
 \newcommand{\Title}{BYU MS/PhD {\LaTeX} Class Dissertation Example}
 \newcommand{\Author}{Christopher K. Monson}
-\newcommand{\GraduationMonth}{March}
-\newcommand{\GraduationYear}{2006}
+\newcommand{\SubmissionMonth}{March}
+\newcommand{\SubmissionYear}{2006}
 
 % Set up the internal PDF information so that it becomes part of the document
 % metadata.  The pdfinfo command will display this.
@@ -71,7 +75,7 @@
     pdftitle=\Title,%
     pdfauthor=\Author,%
     pdfsubject={PhD Dissertation, BYU CS Department: %
-                Degree Granted \GraduationMonth~\GraduationYear, Document Created \today},%
+                Degree Granted \SubmissionMonth~\SubmissionYear, Document Created \today},%
     pdfkeywords={BYU, thesis, dissertation, LaTeX},%
 }
 
@@ -95,9 +99,9 @@
 \committeememberc{Attends A. Meeting}
 \committeememberd{Will B. Present}
 
-\monthgraduated{\GraduationMonth}
-\yeargraduated{\GraduationYear}
-\yearcopyrighted{\GraduationYear}
+\monthsubmitted{\SubmissionMonth}
+\yearsubmitted{\SubmissionYear}
+\yearcopyrighted{\SubmissionYear}
 
 \documentabstract{%
     This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.  It is meant to replace the old ECEn style file that has been circulating for many years.
@@ -198,13 +202,13 @@ In order to produce a correct preamble, several things must be set, and others c
     \item \verb|\committeememberb{<third member>}|
     \item \verb|\committeememberc{<fourth member (PhD only)>}|
     \item \verb|\committeememberd{<fifth member (PhD only)>}|
-    \item \verb|\monthgraduated{<month of graduation>}|
-    \item \verb|\yeargraduated{<hopefully this year>}|
+    \item \verb|\monthsubmitted{<month of submission>}|
+    \item \verb|\yearsubmitted{<hopefully this year>}|
     \item \verb|\documentabstract{<your thesis abstract goes here>}|
 \end{itemize}
 The following are optional or have defaults suitable for CS majors:
 \begin{itemize}
-    \item \verb|\yearcopyrighted{<defaults to year graduated>}|
+    \item \verb|\yearcopyrighted{<defaults to year submitted>}|
     \item \verb|\acknowledgments{<the text of your acknowledgments goes here>}|
     \item \verb|\university{<default: Brigham Young University>}|
     \item \verb|\department{<default: Computer Science>}|

@@ -26,9 +26,14 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.4
+% Version: 1.0.5
 %
 % Changelog:
+%   Chris Monson (2007-03-10):
+%       *   Bumped version to 1.0.5
+%       *   Addressed issue (2) on code.google.com/p/latex-byu-thesis as follows
+%       *   Created a fake pdfbookmark command that switches on with hyperref
+%       *   Inserted pdfbookmark commands per Dan Delorey (new requirements)
 %   Chris Monson (2007-03-09):
 %       *   Bumped version to 1.0.4
 %       *   Added the LGPL as an alternate license
@@ -42,7 +47,7 @@
 %       *   First reasonable release
 %
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{byumsphd}[2007/03/09 BYU LaTeX MS/PhD Class]
+\ProvidesClass{byumsphd}[2007/03/10 BYU LaTeX MS/PhD Class]
 %
 % Boolean option creation
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
@@ -60,6 +65,16 @@
 \newcommand{\@@sideval}{twoside}
 \newcommand{\@@openval}{openright}
 \newcommand{\@@ptsize}{12pt}
+
+% This is an empty no-op command in case pdfbookmark is not defined (hyperref
+% not included)
+\newcommand{\@@pdfbookmark}[3][1]{%
+  \ifx\pdfbookmark\undefined
+    \relax
+  \else
+    \pdfbookmark[#1]{#2}{#3}%
+  \fi
+}%
 
 %
 % This document can serve as either a PhD dissertation or a Master's thesis
@@ -453,6 +468,7 @@
 % Title page
 \renewcommand{\titlepage}{%
     \clearpage
+    \@@pdfbookmark[1]{Title Page}{title}%
     {\parindent 0pt%
     {\centering
     \vspace*{\@prefacemargingapdouble}%
@@ -505,6 +521,7 @@
 %
 \newcommand{\abstractpage}{%
     \clearpage
+    \@@pdfbookmark[1]{Abstract}{abstract}%
     {\centering
     \parindent 0pt%
     \vspace*{\@prefacemargingapdouble}%
@@ -545,6 +562,7 @@
 %
 \renewcommand{\tableofcontents}{%
     \clearpage
+    \@@pdfbookmark[1]{Table of Contents}{toc}%
     \@tocheader{\contentsname}%
     \thispagestyle{plain}%
     \@starttoc{toc}%
@@ -553,6 +571,7 @@
 %
 \renewcommand{\listoffigures}{%
     \clearpage
+    \@@pdfbookmark[1]{List of Figures}{lof}%
     \@tocheader{\listfigurename}%
     \@starttoc{lof}%
     \newpage
@@ -560,6 +579,7 @@
 %
 \renewcommand{\listoftables}{%
     \clearpage
+    \@@pdfbookmark[1]{List of Tables}{lot}%
     \@tocheader{\listtablename}%
     \@starttoc{lot}%
     \newpage
