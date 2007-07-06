@@ -68,10 +68,15 @@
     colorlinks=false,
     ]{hyperref}
 
-% NOTE: If you use natbib, then you are in luck.  There is a neat little hack I
-% cooked up to get "References" to show up in your TOC (I hate it, so I don't
-% use it, but Dan Delorey apparently needed to) and to bookmark correctly.
-% Between \usepackage{natbib} and \begin{document}, put the following lines:
+% This is the standard way to get the bibliography bookmark in the TOC, and is
+% REQUIRED.
+\usepackage{tocbibind}
+
+% NOTE: If the above line doens't work for you, but you use natbib, then you
+% are in luck.  There is a neat little hack I cooked up to get "References" to
+% show up in your TOC (I hate it, so I don't use it, but Dan Delorey apparently
+% needed to) and to bookmark correctly.  Between \usepackage{natbib} and
+% \begin{document}, put the following lines:
 %
 % \let\oldbibsection\bibsection
 % \renewcommand{\bibname}{References}

@@ -26,9 +26,16 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.7
+% Version: 1.0.8
 %
 % Changelog:
+%   Chris Monson (2007-07-06):
+%       *   Bumped version to 1.0.8
+%       *   Fixed signature page to be compliant with new rules
+%       *   Added duplexprinter convenience option
+%       *   Added tocbibind to the example file to show people how to get their
+%           bibliography referenced in the TOC
+%       *   This closes issues 4 and 6 in the tracker
 %   Chris Monson (2007-03-10):
 %       *   Bumped version to 1.0.5
 %       *   Addressed issue (2) on code.google.com/p/latex-byu-thesis as follows
