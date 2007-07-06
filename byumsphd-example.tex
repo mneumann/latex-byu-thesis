@@ -35,6 +35,13 @@
 %
 %   partmiddle -- Part headers are centered vertically, no other text on page
 %   parttop -- Part headers at top of page, other text expected
+%
+%   duplexprinter -- Ensures that the two-sided portion starts on the right
+%     side when printing.  This is not for use in submission, since the best
+%     thing to do there is to print everything out one-sided, then take it down
+%     to the copy store to have them do the rest.  It does help to save trees
+%     when you are printing out copies just to look at them and fiddle with
+%     things.
 
 
 % This command fixes my particular printer, which starts 0.03 inches too low,
@@ -186,6 +193,15 @@ This class has several options that affect document output in various ways.  The
             \item \textbf{oneside}: Same margins for every page
             \item \textbf{openright (default)}: Chapters start on an odd page
             \item \textbf{openany}: Chapters start anywhere (tip: don't use this)
+            \item \textbf{duplexprinter}: If printing two-sided (to save trees while evaluating the state of things, for example), this ensures that a blank page is printed when necessary between the front matter and the first chapter, ensuring that the first chapter starts on the front of a sheet (the right side).  It is important to note that you should \emph{not} plan on using this to generate the final document.  Paper that is required for theses is typically much heavier and more opaque than paper you are going to have in your department printer.  Print everything one-sided so that text from the back of a page doesn't bleed through when getting copied for the final draft.  Here is how I suggest you print the final draft:
+              \begin{itemize}
+                \item Print the entire document \emph{without} this option (but \emph{with} the twoside option so that page margins alternate correctly).
+                \item Take it to the copy center and say the word "thesis" to someone behind the counter.
+                \item Show her the front matter and say "one-sided".  A sticky note is likely to be applied.
+                \item Show her the rest and say "two-sided".
+                \item Smile: she has your baby in her hands.
+                \item Pay and wait until it's done.
+              \end{itemize}
         \end{itemize}
     \item Miscellaneous Layout:
         \begin{itemize}

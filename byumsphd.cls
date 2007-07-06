@@ -67,6 +67,7 @@
 \newif\if@layout % This will draw lines showing all the margins
 \newif\if@grid % Show a grid
 \newif\if@separator % Show a separator page between the single-sided and double-sided parts of the document
+\newif\if@duplexprinter % Ensure that there are an even number of pages in the front matter
 
 \newcommand{\@@sideval}{twoside}
 \newcommand{\@@openval}{openright}
@@ -99,6 +100,7 @@
 \DeclareOption{layout}{\@needdrawingtrue \@layouttrue}
 \DeclareOption{grid}{\@needdrawingtrue \@gridtrue}
 \DeclareOption{separator}{\@separatortrue}
+\DeclareOption{duplexprinter}{\@duplexprintertrue}
 \DeclareOption{twoside}{\renewcommand{\@@sideval}{twoside}}%
 \DeclareOption{oneside}{\renewcommand{\@@sideval}{oneside}}%
 \DeclareOption{openright}{\renewcommand{\@@openval}{openright}}%
@@ -116,6 +118,8 @@
 \@lotfalse
 % Default to PhD
 \@thesisfalse
+% Default to one-sided printing
+\@duplexprinterfalse
 % Don't show the layout, usually
 \@needdrawingfalse
 \@layoutfalse
@@ -298,6 +302,11 @@
     \fi
 }%
 %
+\newcommand{\@clearemptydoublepage}{%
+    \clearpage
+    {\pagestyle{empty}\cleardoublepage}%
+}%
+%
 \newcommand{\clearpage@forchapter}{%
     \if@openright
         \cleardoublepage
@@ -352,7 +361,7 @@
 \newcommand{\documentabstract}[1]{\renewcommand{\@documentabstract}{#1}}
 \newcommand{\acknowledgments}[1]{\@hasacknowledgmentstrue\renewcommand{\@acknowledgments}{#1}}
 %
-% Internal commands with no external settings
+% Internal lengths with no external settings
 \newlength{\@assumedcharwidth}
 \newlength{\@defaultindent}
 \newlength{\@sigskip}
@@ -396,16 +405,10 @@
     \par
 }
 %
-\providecommand{\SignatureNoDate}[2][Accepted]{%
+\providecommand{\SignaturePurpose}[2][Accepted]{%
     \noindent
-    \parbox[t]{\Datewidth}{%
-        #1%
-    }%
-    \hfill
-    \parbox[t]{\Sigwidth}{%
-        \rule{\Sigwidth}{0.4pt}\\{#2}%
-    }%
-    \par
+    #1\\ \\%
+    \Signature{#2}%
 }
 %
 % Department signature page
@@ -463,9 +466,9 @@
     \vspace{4\@blankline}\par
     \Signature{\@committeechair\\Chair, Graduate Committee}%
     \vspace{\fill}\par
-    \SignatureNoDate[Accepted for the\\Department]{\@graduatecoordinator\\Graduate Coordinator}%
+    \SignaturePurpose[Accepted for the Department]{\@graduatecoordinator\\Graduate Coordinator}%
     \vspace{\fill}\par
-    \SignatureNoDate[Accepted for the\\College]{\@collegedean\\\@collegedeantitle, \@college}%
+    \SignaturePurpose[Accepted for the College]{\@collegedean\\\@collegedeantitle, \@college}%
     \vspace{\fill}\par
     }% end parindent
     \newpage
@@ -757,6 +760,9 @@
         \end{doublespace}%
     }%
     \end{singlespace}%
+    \if@duplexprinter
+        \@clearemptydoublepage
+    \fi
     % Body starts here
     \setup@bodymargins
     % It is vital that we switch numbering BEFORE clearing to start a new page,
