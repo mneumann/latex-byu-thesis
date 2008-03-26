@@ -27,9 +27,10 @@
 
 % Here we set things up for invisible hyperlinks in the document.  This makes
 % the electronic version clickable without changing the way that the document
-% prints.  It's useful, but optional.
+% prints.  It's useful, but optional.  Note that if you use pdflatex, you
+% should change "ps2pdf" to "pdftex".
 \usepackage[
-    pdftex,
+    ps2pdf,
     bookmarks=true,
     breaklinks=true,
     raiselinks=true,
