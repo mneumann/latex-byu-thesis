@@ -26,9 +26,11 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.8
+% Version: 1.0.9
 %
 % Changelog:
+%   Chris Monson (2008-05-21):
+%       *   Bumped version to 1.0.9
 %   Lloyd Brown (Contrib) (2008-05-15):
 %       *   Added option for setting "Department" as in "Accepted for the 
 %           Department" to something else
