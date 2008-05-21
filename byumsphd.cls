@@ -29,6 +29,12 @@
 % Version: 1.0.8
 %
 % Changelog:
+%   Lloyd Brown (Contrib) (2008-05-15):
+%       *   Added option for setting "Department" as in "Accepted for the 
+%           Department" to something else
+%       *   Added option for setting "Graduate Coordinator" title to something
+%           else
+%	*   This closes issue 8 in the tracker
 %   Chris Monson (2007-07-06):
 %       *   Bumped version to 1.0.8
 %       *   Fixed signature page to be compliant with new rules
@@ -327,7 +333,9 @@
 \newcommand{\@university}{Brigham Young University}
 \newcommand{\@department}{Computer Science}
 \newcommand{\@departmentprefix}{Department of}
+\newcommand{\@departmentprefixshort}{Department}
 \newcommand{\@graduatecoordinator}{Parris~K.~Egbert}
+\newcommand{\@graduatecoordinatortitle}{Graduate~Coordinator}
 \newcommand{\@college}{College of Physical and Mathematical Sciences}
 \newcommand{\@collegedean}{Thomas~W.~Sederberg}
 \newcommand{\@collegedeantitle}{Associate Dean}
@@ -352,7 +360,9 @@
 \newcommand{\university}[1]{\renewcommand{\@university}{#1}}
 \newcommand{\department}[1]{\renewcommand{\@department}{#1}}
 \newcommand{\departmentprefix}[1]{\renewcommand{\@departmentprefix}{#1}}
+\newcommand{\departmentprefixshort}[1]{\renewcommand{\@departmentprefixshort}{#1}}
 \newcommand{\graduatecoordinator}[1]{\renewcommand{\@graduatecoordinator}{#1}}
+\newcommand{\graduatecoordinatortitle}[1]{\renewcommand{\@graduatecoordinatortitle}{#1}}
 \newcommand{\college}[1]{\renewcommand{\@college}{#1}}
 \newcommand{\collegedean}[1]{\renewcommand{\@collegedean}{#1}}
 \newcommand{\collegedeantitle}[1]{\renewcommand{\@collegedeantitle}{#1}}
@@ -473,7 +483,7 @@
     \vspace{4\@blankline}\par
     \Signature{\@committeechair\\Chair, Graduate Committee}%
     \vspace{\fill}\par
-    \SignaturePurpose[Accepted for the Department]{\@graduatecoordinator\\Graduate Coordinator}%
+    \SignaturePurpose[Accepted for the \@departmentprefixshort]{\@graduatecoordinator\\\@graduatecoordinatortitle}%
     \vspace{\fill}\par
     \SignaturePurpose[Accepted for the College]{\@collegedean\\\@collegedeantitle, \@college}%
     \vspace{\fill}\par
