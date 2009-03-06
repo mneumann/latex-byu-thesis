@@ -26,9 +26,13 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.9
+% Version: 1.0.10
 %
 % Changelog:
+%   Chris Monson (Anonymous Contrib) (2009-03-06):
+%       *   Bumped version to 1.0.10
+%       *   Added \copyrighttext settable option (replacing All Rights
+%           Reserved)
 %   Chris Monson (2008-05-21):
 %       *   Bumped version to 1.0.9
 %   Lloyd Brown (Contrib) (2008-05-15):
@@ -349,6 +353,7 @@
 \newcommand{\@monthsubmitted}{}
 \newcommand{\@yearsubmitted}{}
 \newcommand{\@yearcopyrighted}{\@yearsubmitted}
+\newcommand{\@copyrighttext}{All Rights Reserved}
 %
 \newcommand{\@documentabstract}{}
 \newcommand{\@acknowledgments}{}
@@ -376,6 +381,7 @@
 \newcommand{\monthsubmitted}[1]{\renewcommand{\@monthsubmitted}{#1}}
 \newcommand{\yearsubmitted}[1]{\renewcommand{\@yearsubmitted}{#1}}
 \newcommand{\yearcopyrighted}[1]{\renewcommand{\@yearcopyrighted}{#1}}
+\newcommand{\copyrighttext}[1]{\renewcommand{\@copyrighttext}{#1}}
 %
 \newcommand{\documentabstract}[1]{\renewcommand{\@documentabstract}{#1}}
 \newcommand{\acknowledgments}[1]{\@hasacknowledgmentstrue\renewcommand{\@acknowledgments}{#1}}
@@ -540,7 +546,7 @@
     \vspace*{\fill}%
     \begin{doublespace}
         Copyright {\copyright} {\@yearcopyrighted} {\@author}\\%
-        All Rights Reserved%
+        {\@copyrighttext}%
     \end{doublespace}
     \vspace*{\fill}%
     \par}% end centering
