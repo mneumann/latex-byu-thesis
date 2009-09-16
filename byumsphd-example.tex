@@ -59,14 +59,23 @@
 % Here we set things up for invisible hyperlinks in the document.  This makes
 % the electronic version clickable without changing the way that the document
 % prints.  It's useful, but optional.
+%
+% NOTE: if you use pdftex instead of latex + dvips + ps2pdf, then you need to
+% change the corresponding entry below (ps2pdf -> pdftex).  If you use my LaTeX
+% makefile (at http://latex-makefile.googlecode.com/) then ps2pdf is the right
+% way to go.  There are many other benefits to using the makefile, too.
 \usepackage[
     ps2pdf,
     bookmarks=true,
+    bookmarksnumbered=true,
     breaklinks=false,
     raiselinks=true,
     pdfborder={0 0 0},
     colorlinks=false,
     ]{hyperref}
+
+% This makes hyperlinks point to the tops of figures, not their captions
+\usepackage[all]{hypcap}
 
 % This is the standard way to get the bibliography bookmark in the TOC, and is
 % REQUIRED.
