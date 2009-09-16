@@ -26,9 +26,12 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.10
+% Version: 1.0.11
 %
 % Changelog:
+%   Chris Monson (2009-09-16):
+%       *   Bumped version to 1.0.11
+%       *   Updated example file to be more informative.
 %   Chris Monson (Anonymous Contrib) (2009-03-06):
 %       *   Bumped version to 1.0.10
 %       *   Added \copyrighttext settable option (replacing All Rights
