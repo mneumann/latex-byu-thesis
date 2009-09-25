@@ -26,9 +26,13 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.11
+% Version: 1.0.12
 %
 % Changelog:
+%   Chris Monson (2009-09-25):
+%       *   Bumped version to 1.0.12
+%   Lloyd Brown (Contrib) (2009-09-25):
+%       *   Added options to enable "list of listings", named "lol".
 %   Chris Monson (2009-09-16):
 %       *   Bumped version to 1.0.11
 %       *   Updated example file to be more informative.
@@ -85,7 +89,9 @@
 \newif\if@compliantsizes % for headings no larger than 12 pt (ugly)
 \newif\if@lof % Show list of figures?
 \newif\if@lot % Show list of tables?
+\newif\if@lol % Show list of listings?
 \newif\if@needdrawing % Need the eso-pic environment?  Drawing something?
+\newif\if@needlistings % Need the listings package?  Using List of Listings?
 \newif\if@layout % This will draw lines showing all the margins
 \newif\if@grid % Show a grid
 \newif\if@separator % Show a separator page between the single-sided and double-sided parts of the document
@@ -119,6 +125,7 @@
 \DeclareOption{nochapternum}{\@chapternumfalse}
 \DeclareOption{lof}{\@loftrue}
 \DeclareOption{lot}{\@lottrue}
+\DeclareOption{lol}{\@needlistingstrue \@loltrue}
 \DeclareOption{layout}{\@needdrawingtrue \@layouttrue}
 \DeclareOption{grid}{\@needdrawingtrue \@gridtrue}
 \DeclareOption{separator}{\@separatortrue}
@@ -138,6 +145,7 @@
 % Default to NOT showing lists of figures and tables
 \@loffalse
 \@lotfalse
+\@lolfalse
 % Default to PhD
 \@thesisfalse
 % Default to one-sided printing
@@ -183,6 +191,11 @@
     outer=1.0in,
     ]%
     {geometry}
+%
+% If we are showing a list of listings, then we need to include the listings package
+\if@needlistings
+    \RequirePackage{listings}%
+\fi
 %
 % If we are showing layout grids, then we include the appropriate package and
 % draw stuff on every page.
@@ -780,6 +793,10 @@
             \if@lot
                 \listoftables
             \fi
+	    \if@lol
+	      \renewcommand\lstlistlistingname{List of Listings}
+	      \lstlistoflistings
+	    \fi
         \if@twoside
             \if@separator
                 \@separatorpage
