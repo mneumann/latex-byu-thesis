@@ -1,4 +1,4 @@
-\documentclass[letterpaper,phd,prettyheadings,chaptercenter,parttop,lol]{byumsphd}
+\documentclass[letterpaper,phd,prettyheadings,chaptercenter,parttop,lot,lof,lol]{byumsphd}
 % Author: Chris Monson
 %
 % This document is in the public domain
@@ -77,24 +77,7 @@
 
 % This makes hyperlinks point to the tops of figures, not their captions
 \usepackage[all]{hypcap}
-
-% This is the standard way to get the bibliography bookmark in the TOC, and is
-% REQUIRED.
-\usepackage{tocbibind}
-
-% NOTE: If the above line doens't work for you, but you use natbib, then you
-% are in luck.  There is a neat little hack I cooked up to get "References" to
-% show up in your TOC (I hate it, so I don't use it, but Dan Delorey apparently
-% needed to) and to bookmark correctly.  Between \usepackage{natbib} and
-% \begin{document}, put the following lines:
-%
-% \let\oldbibsection\bibsection
-% \renewcommand{\bibname}{References}
-% \renewcommand{\bibsection}{%
-%   \oldbibsection\addcontentsline{toc}{part}{References}}
-%
-% That's it!  I didn't include it in the class file because bibliography usage
-% is so very idiosyncratic.
+\usepackage{natbib}
 
 % Because I use these things in more than one place, I created new commands for
 % them.  I did not use \providecommand because I absolutely want LaTeX to error
@@ -201,6 +184,7 @@ This class has several options that affect document output in various ways.  The
         \begin{itemize}
             \item \textbf{lot}: Produce a List of Tables (default off)
             \item \textbf{lof}: Produce a List of Figures (default off)
+            \item \textbf{lol}: Produce a List of Listings (default off)
         \end{itemize}
     \item Page Formatting:
         \begin{itemize}
@@ -222,6 +206,7 @@ This class has several options that affect document output in various ways.  The
         \begin{itemize}
             \item \textbf{prettyheadings (default)}: Allow larger font sizes for chapter, part, and section headings.  If you can get away with it, use this.
             \item \textbf{compliantheadings}: Use the same font size for everything -- ugly, but compliant with the minimum style requirements.
+            \item \textbf{simplechapterheading}: Chapter headings are "simple", meaning that they are of the format "1 Title" instead of "Chapter 1(newline)Title".
             \item \textbf{chapterleft (default)}: Chapter headings are left justified
             \item \textbf{chaptercenter}: Chapter headings are centered
             \item \textbf{partmiddle (default)}: Part headings are vertically centered
@@ -269,6 +254,11 @@ If you are interested in getting a handle on what the class is doing, read the s
 If you would like an enhancement made to it, you are welcome to do it yourself or to contact the author; information is available in the class file comments.  License information is also available there, but boils down to basically this: you can do what you like with this file, but if you change it, change the name.  If you have a change that you think belongs in the main distribution, contact the author and it will most likely be included in the official class file.
 
 Please enjoy, and note all kinds of feedback are welcome, especially the kinds that involve deposits into the author's bank account.
+
+\nocite{testentry}
+
+\bibliographystyle{plainnat}
+\bibliography{bib}
 
 \end{document}
 

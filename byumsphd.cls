@@ -26,9 +26,13 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.12
+% Version: 1.0.13
 %
 % Changelog:
+%   Chris Monson (2009-10-27):
+%       *   Bumped version to 1.0.13
+%       *   Addressed issue 12: chapter heading styles have changed
+%       *   Addressed issue 13: lol, lot, and lof not linking properly
 %   Chris Monson (2009-09-25):
 %       *   Bumped version to 1.0.12
 %   Lloyd Brown (Contrib) (2009-09-25):
@@ -82,6 +86,7 @@
 \ProvidesClass{byumsphd}[2007/03/10 BYU LaTeX MS/PhD Class]
 %
 % Boolean option creation
+\newif\if@simplechapterheading % "1 Title" instead of "Chapter 1<nl>Title"
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
 \newif\if@chapternum % for putting page numbers on part and chapter pages
 \newif\if@centerchapter % for centered chapter headings vs. left-justified
@@ -113,6 +118,7 @@
 
 %
 % This document can serve as either a PhD dissertation or a Master's thesis
+\DeclareOption{simplechapterheading}{\@simplechapterheadingtrue}
 \DeclareOption{compliantheadings}{\@compliantsizestrue}
 \DeclareOption{prettyheadings}{\@compliantsizesfalse}
 \DeclareOption{chaptercenter}{\@centerchaptertrue}
@@ -142,6 +148,8 @@
 
 \setlength{\unitlength}{1in}
 %
+% Default to NOT indenting first paragraph, using normal chapter headings
+\@simplechapterheadingfalse
 % Default to NOT showing lists of figures and tables
 \@loffalse
 \@lotfalse
@@ -596,6 +604,12 @@
     \newpage
 }%
 %
+% Create a counter for the listings that need to be referenced from the table
+% of contents.  This is needed to get hyperref to link to unnumbered sections
+% properly (like listoftables, etc.) without using an existing counter and
+% messing up the numbering of other kinds of sections.
+\newcounter{toclistings}
+%
 \newcommand{\acknowledgmentspage}{%
     \clearpage
     {\centering
@@ -621,7 +635,8 @@
 %
 \renewcommand{\listoffigures}{%
     \clearpage
-    \@@pdfbookmark[1]{List of Figures}{lof}%
+    \refstepcounter{toclistings}
+    \addcontentsline{toc}{chapter}{\listfigurename}
     \@tocheader{\listfigurename}%
     \@starttoc{lof}%
     \newpage
@@ -629,11 +644,24 @@
 %
 \renewcommand{\listoftables}{%
     \clearpage
-    \@@pdfbookmark[1]{List of Tables}{lot}%
+    \refstepcounter{toclistings}
+    \addcontentsline{toc}{chapter}{\listtablename}
     \@tocheader{\listtablename}%
     \@starttoc{lot}%
     \newpage
 }%
+%
+\if@lol
+\renewcommand{\lstlistlistingname}{List of Listings}
+\renewcommand{\lstlistoflistings}{%
+    \clearpage
+    \refstepcounter{toclistings}
+    \addcontentsline{toc}{chapter}{\lstlistlistingname}
+    \@tocheader{\lstlistlistingname}%
+    \@starttoc{lol}%
+    \newpage
+}%
+\fi
 %
 \newcommand{\@separatorpage}{%
     \clearpage
@@ -692,6 +720,7 @@
     \end{@headjustify}%
 }%
 %
+%
 \renewcommand{\@makechapterhead}[1]{%
     \begin{@headjustify}%
     \@chapterpagestyle
@@ -699,12 +728,23 @@
         \begin{singlespace}%
         \vspace*{\@prefacemargingapdouble}%
         \ifnum \c@secnumdepth > \m@ne
-            \@sizeLarge \bf \expandafter{\@chapapp{} \thechapter}%
+            \@sizeLarge \bf
+            \if@simplechapterheading
+                \expandafter{%
+                    \thechapter
+                    \hspace{0.25in}%
+                    \MakeUppercase{#1}%
+                }%
+            \else
+                \expandafter{\@chapapp{} \thechapter}%
+            \fi
             \par
             \vspace{\@blankline}%
         \fi
         \end{singlespace}%
-        \@sizelarge \bf {#1} \par
+        \if@simplechapterheading\else
+            \@sizelarge \bf {#1} \par
+        \fi
         \begin{singlespace}%
         \vspace{\@blankline}%
         \end{singlespace}%
@@ -794,8 +834,7 @@
                 \listoftables
             \fi
 	    \if@lol
-	      \renewcommand\lstlistlistingname{List of Listings}
-	      \lstlistoflistings
+                \lstlistoflistings
 	    \fi
         \if@twoside
             \if@separator
@@ -836,10 +875,25 @@
     \pagenumbering{arabic}%
     \setup@bodymargins
     \parindent \@defaultindent
+    % Fix the bibliography stuff (if using natbib).
+    \@ifpackageloaded{natbib}{% natbib loaded
+        \renewcommand{\bibname}{\refname}
+        \let\oldbibsection\bibsection
+        \renewcommand{\bibsection}{%
+            \oldbibsection
+            \refstepcounter{toclistings}%
+            \addcontentsline{toc}{chapter}{\refname}
+        }%
+    }{% natbib not loaded
+        \ClassWarning{byumsphd}{Not using natbib - TOC might not show references.}
+        \renewcommand{\bibname}{References}
+        \let\old@openbib@code\@openbib@code
+        \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
+    }%
     % Set up double spacing---this is safe because the overall document is
     % single-spaced and we'll set up single spacing as the default in maketitle
     % where spacing matters.
     \doublespace
 }%
 %
-% vim: ft=tex
+% vim: ft=tex sw=4 sts=4
