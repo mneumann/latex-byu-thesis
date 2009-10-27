@@ -33,6 +33,7 @@
 %       *   Bumped version to 1.0.13
 %       *   Addressed issue 12: chapter heading styles have changed
 %       *   Addressed issue 13: lol, lot, and lof not linking properly
+%       *   Made bibsection hack part of standard behavior
 %   Chris Monson (2009-09-25):
 %       *   Bumped version to 1.0.12
 %   Lloyd Brown (Contrib) (2009-09-25):
