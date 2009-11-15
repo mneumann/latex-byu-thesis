@@ -26,9 +26,14 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0.13
+% Version: 1.0.14
 %
 % Changelog:
+%   Chris Monson (2009-11-14):
+%       *   Bumped version to 1.0.14
+%       *   Change Graduate Coordinator default to Kent E. Seamons
+%       *   Addressed issue 16: template is out of sync with new university
+%           requirements
 %   Chris Monson (2009-10-27):
 %       *   Bumped version to 1.0.13
 %       *   Addressed issue 12: chapter heading styles have changed
@@ -52,7 +57,7 @@
 %           Department" to something else
 %       *   Added option for setting "Graduate Coordinator" title to something
 %           else
-%	*   This closes issue 8 in the tracker
+%       *   This closes issue 8 in the tracker
 %   Chris Monson (2007-07-06):
 %       *   Bumped version to 1.0.8
 %       *   Fixed signature page to be compliant with new rules
@@ -167,7 +172,7 @@
     chapternum,
     chapterleft,
     partmiddle,
-    prettyheadings,
+    compliantheadings,
     }%
 \ProcessOptions
 %
@@ -365,7 +370,7 @@
 \newcommand{\@department}{Computer Science}
 \newcommand{\@departmentprefix}{Department of}
 \newcommand{\@departmentprefixshort}{Department}
-\newcommand{\@graduatecoordinator}{Parris~K.~Egbert}
+\newcommand{\@graduatecoordinator}{Kent~E.~Seamons}
 \newcommand{\@graduatecoordinatortitle}{Graduate~Coordinator}
 \newcommand{\@college}{College of Physical and Mathematical Sciences}
 \newcommand{\@collegedean}{Thomas~W.~Sederberg}
@@ -381,7 +386,12 @@
 \newcommand{\@copyrighttext}{All Rights Reserved}
 %
 \newcommand{\@documentabstract}{}
+\newcommand{\@documentkeywords}{}
 \newcommand{\@acknowledgments}{}
+%
+% This tells us whether to generate document keywords
+\newif\if@hasdocumentkeywords
+\@hasdocumentkeywordsfalse
 %
 % This tells us whether to generate the acknowledgments
 \newif\if@hasacknowledgments
@@ -409,6 +419,7 @@
 \newcommand{\copyrighttext}[1]{\renewcommand{\@copyrighttext}{#1}}
 %
 \newcommand{\documentabstract}[1]{\renewcommand{\@documentabstract}{#1}}
+\newcommand{\documentkeywords}[1]{\@hasdocumentkeywordstrue\renewcommand{\@documentkeywords}{#1}}
 \newcommand{\acknowledgments}[1]{\@hasacknowledgmentstrue\renewcommand{\@acknowledgments}{#1}}
 %
 % Internal lengths with no external settings
@@ -421,7 +432,7 @@
 \setlength{\@assumedcharwidth}{6pt}
 \setlength{\@defaultindent}{6\@assumedcharwidth}
 \setlength{\@blankline}{\baselineskip}
-\setlength{\@sigskip}{2\@blankline} % signature spacing is 2 blank lines
+\setlength{\@sigskip}{1.5\@blankline}
 %
 % This is the margin gap between the top of the paper and single-spaced text.  It defines a margin that is a total of 2 inches from the top
 \setlength{\@prefacemargingapsingle}{1in}
@@ -462,24 +473,26 @@
 }
 %
 % Department signature page
-\newcommand{\signaturecommitteepage}{%
+\newcommand{\signaturepage}{%
     \clearpage
     {\parindent 0pt%
-    \vspace*{\@prefacemargingapdouble}%
     {\centering
-        \MakeUppercase{\@university}%
-        \vspace{3\@blankline}\par
-        GRADUATE COMMITTEE APPROVAL%
-        \vspace{5\@blankline}\par
         \begin{doublespace}%
+        \MakeUppercase{\@university}%
+        \vspace{2\@blankline}\par
+        SIGNATURE PAGE%
+        \vspace{2\@blankline}\par
         of a {\@documenttype} submitted by\\%
         \@author
         \end{doublespace}%
     \par}% end centering
     \vspace{2\@blankline}\par
-    This {\@documenttype} has been read by each member of the following
-    graduate committee and by majority vote has been found to be
-    satisfactory.
+    The {\@documenttype} of {\@author} is acceptable in its final form
+    including (1) its format, citations, and bibliographical style are
+    consistent and acceptable and fulfill university and department style
+    requirements; (2) its illustrative materials including figures, tables, and
+    charts are in place; and (3) the final manuscript is satisfactory and ready
+    for submission.
     \vspace{3\@blankline}\par
     \Signature{\@committeechair, Chair}%
     \vspace{\@sigskip}\par
@@ -492,34 +505,10 @@
         \vspace{\@sigskip}\par
         \Signature{\@committeememberd}%
     \fi
-    }% end parindent
-    \newpage
-}%
-%
-% University signature page
-\newcommand{\signatureuniversitypage}{%
-    \clearpage
-    {\parindent 0pt%
-    \vspace*{\@prefacemargingapdouble}%
-    {\centering
-        \MakeUppercase{\@university}%
-    \par}% end centering
-    \vspace{3\@blankline}\par
-    As chair of the candidate's graduate committee, I have read
-    the {\@documenttype} of {\@author} in its final form and have
-    found that (1) its format, citations, and bibliographical
-    style are consistent and acceptable and fulfill university and
-    department style requirements; (2) its illustrative materials
-    including figures, tables, and charts are in place; and (3)
-    the final manuscript is satisfactory to the graduate committee
-    and is ready for submission to the university library.
-    \vspace{4\@blankline}\par
-    \Signature{\@committeechair\\Chair, Graduate Committee}%
-    \vspace{\fill}\par
-    \SignaturePurpose[Accepted for the \@departmentprefixshort]{\@graduatecoordinator\\\@graduatecoordinatortitle}%
-    \vspace{\fill}\par
-    \SignaturePurpose[Accepted for the College]{\@collegedean\\\@collegedeantitle, \@college}%
-    \vspace{\fill}\par
+    \vspace{3\@sigskip}\par
+    \Signature{\@graduatecoordinator, \@graduatecoordinatortitle}%
+    \vspace{\@sigskip}\par
+    \Signature{\@collegedean, \@collegedeantitle, \@college}%
     }% end parindent
     \newpage
 }%
@@ -530,28 +519,26 @@
     \@@pdfbookmark[1]{Title Page}{title}%
     {\parindent 0pt%
     {\centering
-    \vspace*{\@prefacemargingapdouble}%
     \parbox[t]{5in}{\centering
         \begin{doublespace}%
-            \MakeUppercase{\@title}%
+            \@title
         \end{doublespace}%
     \par}%
     \vfill
-        \begin{doublespace}%
-            by\\\@author
-        \end{doublespace}%
+        \@author
     \vfill
-    \vfill
-        \begin{doublespace}%
-            A {\@documenttype} submitted to the faculty of\\%
-            \@university\\%
-            in partial fulfillment of the requirements for the degree of%
-        \end{doublespace}%
-    \vfill
-        \begin{doublespace}%
+        A {\@documenttype} submitted to the faculty of\\%
+        \@university\\%
+        in partial fulfillment of the requirements for the degree of\\%
+        \begin{doublespace}
             \@degreename
-        \end{doublespace}%
+        \end{doublespace}
     \vfill
+        \@committeechair\\%
+        \@committeemembera\\%
+        \@committeememberb\\%
+        \@committeememberc\\%
+        \@committeememberd\\%
     \vfill
     \vfill
         \begin{doublespace}%
@@ -559,15 +546,6 @@
             \@university\\%
             {\@monthsubmitted} {\@yearsubmitted}%
         \end{doublespace}%
-    \par}% end centering
-    }% end parindent
-    \newpage
-}%
-%
-\newcommand{\copyrightpage}{%
-    \clearpage
-    {\centering
-    \parindent 0pt
     \vspace*{\fill}%
     \begin{doublespace}
         Copyright {\copyright} {\@yearcopyrighted} {\@author}\\%
@@ -575,6 +553,7 @@
     \end{doublespace}
     \vspace*{\fill}%
     \par}% end centering
+    }% end parindent
     \newpage
 }%
 %
@@ -583,25 +562,29 @@
     \@@pdfbookmark[1]{Abstract}{abstract}%
     {\centering
     \parindent 0pt%
-    \vspace*{\@prefacemargingapdouble}%
     ABSTRACT%
     \vspace{3\@blankline}\par
     \parbox[t]{5in}{\centering
         \begin{doublespace}%
-            \MakeUppercase{\@title}%
+            \@title
         \end{doublespace}%
     \par}% end parbox
-    \vspace{3\@blankline}\par
+    \vspace{2\@blankline}\par
     \begin{doublespace}%
         {\@author}\\%
         {\@departmentprefix} {\@department}\\%
         \@degreename
     \end{doublespace}%
-    \vspace{3\@blankline}\par
+    \vspace{2\@blankline}\par
     \par}% end centering
-    \begin{doublespace}%
+    \begin{singlespace}%
         \@documentabstract
-    \end{doublespace}%
+        \if@hasdocumentkeywords
+        \vfill\vfill\par\noindent
+            Keywords: \@documentkeywords
+        \vfill\par
+        \fi
+    \end{singlespace}%
     \newpage
 }%
 %
@@ -613,14 +596,13 @@
 %
 \newcommand{\acknowledgmentspage}{%
     \clearpage
+    \begin{doublespace}%
     {\centering
     \parindent 0pt%
-    \vspace*{\@prefacemargingapdouble}%
     ACKNOWLEDGMENTS%
-    \vspace{4\@blankline}\par
+    \vspace{2\@blankline}\par
     \par}% end centering
-    \begin{doublespace}%
-        \@acknowledgments
+    \@acknowledgments
     \end{doublespace}%
     \newpage
 }%
@@ -818,13 +800,11 @@
         \pagestyle{empty}%
         \setlength{\evensidemargin}{0.5in}%
         \titlepage
-        \copyrightpage
-        \signaturecommitteepage
-        \signatureuniversitypage
         \abstractpage
         \if@hasacknowledgments
             \acknowledgmentspage
         \fi
+        \signaturepage
         \begin{doublespace}%
             \pagestyle{plain}%
             \tableofcontents
@@ -834,9 +814,9 @@
             \if@lot
                 \listoftables
             \fi
-	    \if@lol
+            \if@lol
                 \lstlistoflistings
-	    \fi
+            \fi
         \if@twoside
             \if@separator
                 \@separatorpage
@@ -856,6 +836,9 @@
     \pagenumbering{arabic}%
     \clearpage@forchapter
 }%
+%
+% Different font in captions
+\newcommand{\captionfonts}{\small}
 %
 % Fix the abstract environment for individual chapters
 \renewenvironment{abstract}%
