@@ -105,6 +105,7 @@
 \newif\if@needdrawing % Need the eso-pic environment?  Drawing something?
 \newif\if@needlistings % Need the listings package?  Using List of Listings?
 \newif\if@layout % This will draw lines showing all the margins
+\newif\if@equalmargins % Make all margins equal
 \newif\if@grid % Show a grid
 \newif\if@separator % Show a separator page between the single-sided and double-sided parts of the document
 \newif\if@duplexprinter % Ensure that there are an even number of pages in the front matter
@@ -145,6 +146,7 @@
 \DeclareOption{duplexprinter}{\@duplexprintertrue}
 \DeclareOption{twoside}{\renewcommand{\@@sideval}{twoside}}%
 \DeclareOption{oneside}{\renewcommand{\@@sideval}{oneside}}%
+\DeclareOption{equalmargins}{\@equalmarginstrue}%
 \DeclareOption{openright}{\renewcommand{\@@openval}{openright}}%
 \DeclareOption{openany}{\renewcommand{\@@openval}{openany}}%
 \DeclareOption{signaturepage}{\@signaturepagetrue}%
@@ -158,6 +160,8 @@
 %
 % Default to not showing a signature page (only for hardcopy)
 \@signaturepagefalse
+% Default to unequal margins (for binding)
+\@equalmarginsfalse
 % Default to NOT indenting first paragraph, using normal chapter headings
 \@simplechapterheadingfalse
 % Default to NOT showing lists of figures and tables
@@ -202,13 +206,13 @@
 % the preamble, however, because the geometry package does not provide a way to
 % set the margins in the middle of a document.
 %
-\RequirePackage[
-    top=1.0in,
-    bottom=1.0in,
-    inner=1.5in,
-    outer=1.0in,
-    ]%
-    {geometry}
+\RequirePackage{geometry}
+\geometry{top=1.0in,bottom=1.0in,outer=1.0in}
+\if@equalmargins
+    \geometry{inner=1.0in}
+\else
+    \geometry{inner=1.5in}
+\fi
 %
 % If we are showing a list of listings, then we need to include the listings package
 \if@needlistings
@@ -350,6 +354,9 @@
 \newcommand{\setup@bodymargins}{%
     \if@twoside
         \setlength{\evensidemargin}{0.0in}%
+        \if@equalmargins
+            \setlength{\oddsidemargin}{0.0in}%
+        \fi
     \else
         \setlength{\evensidemargin}{0.5in}%
     \fi
@@ -802,7 +809,11 @@
     \pagenumbering{roman}%
     {%
         \pagestyle{empty}%
-        \setlength{\evensidemargin}{0.5in}%
+        \if@equalmargins
+            \setlength{\evensidemargin}{0.0in}%
+        \else
+            \setlength{\evensidemargin}{0.5in}%
+        \fi
         \titlepage
         \abstractpage
         \if@hasacknowledgments

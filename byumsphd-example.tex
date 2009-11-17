@@ -1,4 +1,4 @@
-\documentclass[letterpaper,phd,equalmargins,chaptercenter,parttop,lot,lof,lol]{byumsphd}
+\documentclass[letterpaper,phd,chaptercenter,parttop,lot,lof,lol,signaturepage,twoside,equalmargins]{byumsphd}
 % Author: Chris Monson
 %
 % This document is in the public domain
@@ -22,8 +22,11 @@
 %   grid -- show a half-inch grid on every page, helps with printing (off)
 %   separator -- print an extra instruction page between preamble and body (off)
 %
-%   twoside (*) -- two-sided output (margins alternate for odd and even pages)
+%   twoside (*) -- two-sided output (margins alternate for odd and even pages,
+%     blank pages inserted to ensure that chapters begin on the right side of a
+%     bound copy, etc.)
 %   oneside -- one-sided output (margins are the same on all pages)
+%   equalmargins -- make all margins equal - ugly for binding, but compliant
 %
 %   openright (*) -- force new chapters to start on an odd page
 %   openany -- don't use this, it's ugly
@@ -32,10 +35,14 @@
 %   compliantheadings -- make them look ugly, but compliant with standards
 %
 %   chaptercenter -- center the chapter headings horizontally
-%   chapterleft -- place
+%   chapterleft -- place chapter headings on the left
 %
 %   partmiddle -- Part headers are centered vertically, no other text on page
 %   parttop -- Part headers at top of page, other text expected
+%
+%   signaturepage -- include a signature page in the front matter (typically
+%     only used for a bound hardcopy, since signatures won't show up in the
+%     electronic version for obvious reasons)
 %
 %   duplexprinter -- Ensures that the two-sided portion starts on the right
 %     side when printing.  This is not for use in submission, since the best
