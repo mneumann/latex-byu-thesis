@@ -92,6 +92,7 @@
 \ProvidesClass{byumsphd}[2007/03/10 BYU LaTeX MS/PhD Class]
 %
 % Boolean option creation
+\newif\if@signaturepage % Signature pages are not present in electronic copies
 \newif\if@simplechapterheading % "1 Title" instead of "Chapter 1<nl>Title"
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
 \newif\if@chapternum % for putting page numbers on part and chapter pages
@@ -146,6 +147,7 @@
 \DeclareOption{oneside}{\renewcommand{\@@sideval}{oneside}}%
 \DeclareOption{openright}{\renewcommand{\@@openval}{openright}}%
 \DeclareOption{openany}{\renewcommand{\@@openval}{openany}}%
+\DeclareOption{signaturepage}{\@signaturepagetrue}%
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
 \DeclareOption{11pt}{\renewcommand{\@@ptsize}{11pt}}%
 \DeclareOption{12pt}{\renewcommand{\@@ptsize}{12pt}}%
@@ -154,6 +156,8 @@
 
 \setlength{\unitlength}{1in}
 %
+% Default to not showing a signature page (only for hardcopy)
+\@signaturepagefalse
 % Default to NOT indenting first paragraph, using normal chapter headings
 \@simplechapterheadingfalse
 % Default to NOT showing lists of figures and tables
@@ -534,7 +538,7 @@
             \@degreename
         \end{doublespace}
     \vfill
-        \@committeechair\\%
+        \@committeechair, Chair\\%
         \@committeemembera\\%
         \@committeememberb\\%
         \@committeememberc\\%
@@ -804,7 +808,9 @@
         \if@hasacknowledgments
             \acknowledgmentspage
         \fi
-        \signaturepage
+        \if@signaturepage
+            \signaturepage
+        \fi
         \begin{doublespace}%
             \pagestyle{plain}%
             \tableofcontents
