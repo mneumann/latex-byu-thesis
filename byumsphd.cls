@@ -3,7 +3,11 @@
 %
 % Copyright (c) 2006 Christopher K. Monson
 % The latest version of this file may be obtained from
-%   http:www.bouncingchairs.net/oss
+%   http://latex-byu-thesis.googlecode.com/
+%
+% Bug reports are also welcome at that address, and will be addressed as
+% quickly as possible; I know that this is your baby and that everyone is on a
+% tight schedule.  I was there once.
 %
 % License: LaTeX Project Public License (www.latex-project.org/lppl.txt)
 %   Executive summary:
@@ -34,6 +38,8 @@
 %       *   Change Graduate Coordinator default to Kent E. Seamons
 %       *   Addressed issue 16: template is out of sync with new university
 %           requirements
+%       *   Changed the canonical location in the comments (googlecode)
+%       *   Added options for more margin fiddling
 %   Chris Monson (2009-10-27):
 %       *   Bumped version to 1.0.13
 %       *   Addressed issue 12: chapter heading styles have changed
@@ -205,14 +211,7 @@
 % margins directly.  We do have to employ some margin-fiddling trickery after
 % the preamble, however, because the geometry package does not provide a way to
 % set the margins in the middle of a document.
-%
 \RequirePackage{geometry}
-\geometry{top=1.0in,bottom=1.0in,outer=1.0in}
-\if@equalmargins
-    \geometry{inner=1.0in}
-\else
-    \geometry{inner=1.5in}
-\fi
 %
 % If we are showing a list of listings, then we need to include the listings package
 \if@needlistings
@@ -351,17 +350,6 @@
     \fi
 }%
 %
-\newcommand{\setup@bodymargins}{%
-    \if@twoside
-        \setlength{\evensidemargin}{0.0in}%
-        \if@equalmargins
-            \setlength{\oddsidemargin}{0.0in}%
-        \fi
-    \else
-        \setlength{\evensidemargin}{0.5in}%
-    \fi
-}%
-%
 \newcommand{\@clearemptydoublepage}{%
     \clearpage
     {\pagestyle{empty}\cleardoublepage}%
@@ -399,6 +387,7 @@
 \newcommand{\@documentabstract}{}
 \newcommand{\@documentkeywords}{}
 \newcommand{\@acknowledgments}{}
+\newcommand{\@bindingoffset}{0.5in}
 %
 % This tells us whether to generate document keywords
 \newif\if@hasdocumentkeywords
@@ -407,6 +396,16 @@
 % This tells us whether to generate the acknowledgments
 \newif\if@hasacknowledgments
 \@hasacknowledgmentsfalse
+%
+% Set up default geometry specifications
+\geometry{top=1.0in,
+          bottom=1.0in,
+          textwidth=6.0in,
+          hcentering,
+          bindingoffset=\@bindingoffset}
+\if@equalmargins
+    \geometry{bindingoffset=0in}%
+\fi
 %
 % Here are some things that can be set from inside the document.  Most of them
 % have suitable defaults.
@@ -430,8 +429,21 @@
 \newcommand{\copyrighttext}[1]{\renewcommand{\@copyrighttext}{#1}}
 %
 \newcommand{\documentabstract}[1]{\renewcommand{\@documentabstract}{#1}}
-\newcommand{\documentkeywords}[1]{\@hasdocumentkeywordstrue\renewcommand{\@documentkeywords}{#1}}
-\newcommand{\acknowledgments}[1]{\@hasacknowledgmentstrue\renewcommand{\@acknowledgments}{#1}}
+\newcommand{\documentkeywords}[1]{%
+    \@hasdocumentkeywordstrue
+    \renewcommand{\@documentkeywords}{#1}%
+}
+\newcommand{\acknowledgments}[1]{%
+    \@hasacknowledgmentstrue
+    \renewcommand{\@acknowledgments}{#1}%
+}
+\newcommand{\setbindingoffset}[1]{%
+    \renewcommand{\@bindingoffset}{#1}%
+    \if@equalmargins\else
+        \geometry{bindingoffset=#1}%
+    \fi
+}
+\newcommand{\settextwidth}[1]{\geometry{textwidth=#1}}
 %
 % Internal lengths with no external settings
 \newlength{\@assumedcharwidth}
@@ -809,10 +821,9 @@
     \pagenumbering{roman}%
     {%
         \pagestyle{empty}%
-        \if@equalmargins
-            \setlength{\evensidemargin}{0.0in}%
-        \else
-            \setlength{\evensidemargin}{0.5in}%
+        % The front matter is one-sided, so the margins don't alternate
+        \if@equalmargins\else
+            \addtolength{\evensidemargin}{\@bindingoffset}%
         \fi
         \titlepage
         \abstractpage
@@ -846,7 +857,6 @@
         \@clearemptydoublepage
     \fi
     % Body starts here
-    \setup@bodymargins
     % It is vital that we switch numbering BEFORE clearing to start a new page,
     % since clearing it before numbering is switched may produce an erroneous
     % blank page.  This way that page never gets created.
@@ -874,7 +884,6 @@
 \AtBeginDocument{%
     \pagestyle{plain}%
     \pagenumbering{arabic}%
-    \setup@bodymargins
     \parindent \@defaultindent
     % Fix the bibliography stuff (if using natbib).
     \@ifpackageloaded{natbib}{% natbib loaded

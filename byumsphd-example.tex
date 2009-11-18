@@ -1,4 +1,4 @@
-\documentclass[letterpaper,phd,chaptercenter,parttop,lot,lof,lol,signaturepage,twoside,equalmargins]{byumsphd}
+\documentclass[letterpaper,phd,chaptercenter,parttop,lot,lof,lol,signaturepage,twoside,layout,equalmargins]{byumsphd}
 % Author: Chris Monson
 %
 % This document is in the public domain
@@ -81,6 +81,41 @@
     pdfborder={0 0 0},
     colorlinks=false,
     ]{hyperref}
+
+% To fiddle with the margin settings use the below.  DO NOT change stuff
+% directly (like setting \textwidth) - it will break subtle things and you'll
+% be tearing your hair out.
+%
+% For example, if you want 1.5in equal margins, or 2in and 1in margins when
+% printing, add the following below:
+%
+%\setbindingoffset{1.0in}
+%\settextwidth{5.5in}
+%
+% When equalmargins is specified in the class options, the margins will be
+% equal at 1.5in each: (8.5 - 5.5) / 2.  When equalmargins is not specified,
+% the inner margin will be 2.0 and the outer margin will be 1.0: inner = (8.5 -
+% 5.5 - 1.0) / 2 + 1.0 (the 1.0 is the binding offset).
+%
+% The idea is this: you determine how much space the text is going to take up,
+% whether for an electronic document (equalmargins) or not.  You don't want the
+% layout shifting around between printed and electronic documents.
+%
+% So, you specify the text width.  Then, if there is a binding offset (when
+% binding your thesis, the binding takes up space - usually 0.5 inches), that
+% reduces the visual space on the final printed copy.  So, the *effective*
+% margins are calculated by reducing the page size by the binding offset, then
+% computing the remaining space and dividing by two.  Adding back in the
+% binding offset gives the inner margin.  The outer margin is just what's left.
+%
+% All of this is done using the geometry package, which should be manipulated
+% directly at your peril.  It's best just to use the above macros to manipulate your margins.
+%
+% That said, using the geometry macro to set top and bottom margins, or anything else vertical, is perfectly safe and encouraged, e.g.,
+%
+%\geometry{top=2.0in,bottom=2.0in}
+%
+% Just don't fiddle with horizontal margins this way.  You have been warned.
 
 % This makes hyperlinks point to the tops of figures, not their captions
 \usepackage[all]{hypcap}
@@ -199,8 +234,9 @@ This class has several options that affect document output in various ways.  The
         \end{itemize}
     \item Page Formatting:
         \begin{itemize}
+            \item \textbf{equalmargins}: Make all margins equal - no binding offset
             \item \textbf{twoside (default)}: Alternate margins for even and odd pages
-            \item \textbf{oneside}: Same margins for every page
+            \item \textbf{oneside}: One-sided document - margins don't alternate
             \item \textbf{openright (default)}: Chapters start on an odd page
             \item \textbf{openany}: Chapters start anywhere (tip: don't use this)
             \item \textbf{duplexprinter}: If printing two-sided (to save trees while evaluating the state of things, for example), this ensures that a blank page is printed when necessary between the front matter and the first chapter, ensuring that the first chapter starts on the front of a sheet (the right side).  It is important to note that you should \emph{not} plan on using this to generate the final document.  Paper that is required for theses is typically much heavier and more opaque than paper you are going to have in your department printer.  Print everything one-sided so that text from the back of a page doesn't bleed through when getting copied for the final draft.  Here is how I suggest you print the final draft:
@@ -256,6 +292,8 @@ The following are optional or have defaults suitable for CS majors:
     \item \verb|\college{<default: Physical and Mathematical Sciences>}|
     \item \verb|\collegedean{<default: Thomas W. Sederberg>}|
     \item \verb|\collegedeantitle{<default: Associate Dean>}|
+    \item \verb|\settextwidth{<default: 6in>}|
+    \item \verb|\setbindingoffset{<default: 0.5in (for non-equalmargins)>}|
 \end{itemize}
 
 \chapter{Parting Shots}
