@@ -1,5 +1,4 @@
 % BYU MS/PhD LaTeX Class File
-%   (version $Id: byumsphd.cls 4619 2007-03-10 04:03:10Z chris $)
 %
 % Copyright (c) 2006 Christopher K. Monson
 % The latest version of this file may be obtained from
@@ -39,11 +38,11 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.0.14
+% Version: 1.1.0
 %
 % Changelog:
 %   Chris Monson (2009-11-14):
-%       *   Bumped version to 1.0.14
+%       *   Bumped version to 1.1.0
 %       *   Change Graduate Coordinator default to Kent E. Seamons
 %       *   Addressed issue 16: template is out of sync with new university
 %           requirements
