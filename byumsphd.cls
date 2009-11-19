@@ -30,6 +30,15 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
+% NOTE TO USERS WHO DON'T USE NATBIB:
+%
+% Your references section may or may not be included properly in the table of
+% contents or in the pdf bookmarks.  If it isn't, do the following in the
+% preamble of your document and it should show up there.:
+%
+% \let\old@openbib@code\@openbib@code
+% \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
+%
 % Version: 1.0.14
 %
 % Changelog:
@@ -895,10 +904,8 @@
             \addcontentsline{toc}{chapter}{\refname}
         }%
     }{% natbib not loaded
-        \ClassWarning{byumsphd}{Not using natbib - TOC might not show references.}
+        \ClassWarning{byumsphd}{Not using natbib - TOC might not show references.  Search class file comments for "NATBIB" for how to resolve this by hand (or just use natbib - it's an excellent package)}
         \renewcommand{\bibname}{References}
-        \let\old@openbib@code\@openbib@code
-        \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
     }%
     % Set up double spacing---this is safe because the overall document is
     % single-spaced and we'll set up single spacing as the default in maketitle
