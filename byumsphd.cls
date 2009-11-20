@@ -38,9 +38,15 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.0
+% Version: 1.1.1
 %
 % Changelog:
+%   Chris Monson (2009-11-20):
+%       *   Bumped version to 1.1.1
+%       *   issue 19: ms setting gives "no line here to end" errors
+%       *   issue 18: change monthsubmitted to monthgraduated
+%       *   issue 20: page numbering wrong for chapter 1 in some cases
+%       *   issue 17: bookmarks need to be numbered - see example file
 %   Chris Monson (2009-11-14):
 %       *   Bumped version to 1.1.0
 %       *   Change Graduate Coordinator default to Kent E. Seamons
@@ -122,7 +128,17 @@
 \newif\if@equalmargins % Make all margins equal
 \newif\if@grid % Show a grid
 \newif\if@separator % Show a separator page between the single-sided and double-sided parts of the document
+\newif\if@committeemembera
+\newif\if@committeememberb
+\newif\if@committeememberc
+\newif\if@committeememberd
 \newif\if@duplexprinter % Ensure that there are an even number of pages in the front matter
+
+% committee members are not assumed to exist
+\@committeememberafalse
+\@committeememberbfalse
+\@committeemembercfalse
+\@committeememberdfalse
 
 \newcommand{\@@sideval}{twoside}
 \newcommand{\@@openval}{openright}
@@ -387,9 +403,9 @@
 \newcommand{\@committeememberb}{}
 \newcommand{\@committeememberc}{}
 \newcommand{\@committeememberd}{}
-\newcommand{\@monthsubmitted}{}
-\newcommand{\@yearsubmitted}{}
-\newcommand{\@yearcopyrighted}{\@yearsubmitted}
+\newcommand{\@monthgraduated}{}
+\newcommand{\@yeargraduated}{}
+\newcommand{\@yearcopyrighted}{\@yeargraduated}
 \newcommand{\@copyrighttext}{All Rights Reserved}
 %
 \newcommand{\@documentabstract}{}
@@ -427,12 +443,14 @@
 \newcommand{\collegedean}[1]{\renewcommand{\@collegedean}{#1}}
 \newcommand{\collegedeantitle}[1]{\renewcommand{\@collegedeantitle}{#1}}
 \newcommand{\committeechair}[1]{\renewcommand{\@committeechair}{#1}}
-\newcommand{\committeemembera}[1]{\renewcommand{\@committeemembera}{#1}}
-\newcommand{\committeememberb}[1]{\renewcommand{\@committeememberb}{#1}}
-\newcommand{\committeememberc}[1]{\renewcommand{\@committeememberc}{#1}}
-\newcommand{\committeememberd}[1]{\renewcommand{\@committeememberd}{#1}}
-\newcommand{\monthsubmitted}[1]{\renewcommand{\@monthsubmitted}{#1}}
-\newcommand{\yearsubmitted}[1]{\renewcommand{\@yearsubmitted}{#1}}
+\newcommand{\committeemembera}[1]{\@committeememberatrue\renewcommand{\@committeemembera}{#1}}
+\newcommand{\committeememberb}[1]{\@committeememberbtrue\renewcommand{\@committeememberb}{#1}}
+\newcommand{\committeememberc}[1]{\@committeememberctrue\renewcommand{\@committeememberc}{#1}}
+\newcommand{\committeememberd}[1]{\@committeememberdtrue\renewcommand{\@committeememberd}{#1}}
+\newcommand{\monthsubmitted}[1]{\ClassWarning{byumsphd}{monthsubmitted is deprecated - use monthgraduated instead}\monthgraduated{#1}}% TODO: delete this
+\newcommand{\yearsubmitted}[1]{\ClassWarning{byumsphd}{yearsubmitted is deprecated - use yeargraduated instead}\yeargraduated{#1}}% TODO: delete this
+\newcommand{\monthgraduated}[1]{\renewcommand{\@monthgraduated}{#1}}
+\newcommand{\yeargraduated}[1]{\renewcommand{\@yeargraduated}{#1}}
 \newcommand{\yearcopyrighted}[1]{\renewcommand{\@yearcopyrighted}{#1}}
 \newcommand{\copyrighttext}[1]{\renewcommand{\@copyrighttext}{#1}}
 %
@@ -526,13 +544,19 @@
     for submission.
     \vspace{3\@blankline}\par
     \Signature{\@committeechair, Chair}%
-    \vspace{\@sigskip}\par
-    \Signature{\@committeemembera}%
-    \vspace{\@sigskip}\par
-    \Signature{\@committeememberb}%
-    \if@thesis\else
+    \if@committeemembera
+        \vspace{\@sigskip}\par
+        \Signature{\@committeemembera}%
+    \fi
+    \if@committeememberb
+        \vspace{\@sigskip}\par
+        \Signature{\@committeememberb}%
+    \fi
+    \if@committeememberc
         \vspace{\@sigskip}\par
         \Signature{\@committeememberc}%
+    \fi
+    \if@committeememberd
         \vspace{\@sigskip}\par
         \Signature{\@committeememberd}%
     \fi
@@ -566,16 +590,24 @@
         \end{doublespace}
     \vfill
         \@committeechair, Chair\\%
-        \@committeemembera\\%
-        \@committeememberb\\%
-        \@committeememberc\\%
-        \@committeememberd\\%
+        \if@committeemembera
+            \@committeemembera\\%
+        \fi
+        \if@committeememberb
+            \@committeememberb\\%
+        \fi
+        \if@committeememberc
+            \@committeememberc\\%
+        \fi
+        \if@committeememberd
+            \@committeememberd\\%
+        \fi
     \vfill
     \vfill
         \begin{doublespace}%
             {\@departmentprefix} {\@department} \\%
             \@university\\%
-            {\@monthsubmitted} {\@yearsubmitted}%
+            {\@monthgraduated} {\@yeargraduated}%
         \end{doublespace}%
     \vspace*{\fill}%
     \begin{doublespace}
@@ -865,11 +897,8 @@
         \@clearemptydoublepage
     \fi
     % Body starts here
-    % It is vital that we switch numbering BEFORE clearing to start a new page,
-    % since clearing it before numbering is switched may produce an erroneous
-    % blank page.  This way that page never gets created.
-    \pagenumbering{arabic}%
     \clearpage@forchapter
+    \pagenumbering{arabic}%
 }%
 %
 % Different font in captions
