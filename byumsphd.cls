@@ -38,9 +38,13 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.1
+% Version: 1.1.2
 %
 % Changelog:
+%   Chris Monson (2009-11-23):
+%       *   Bumped version to 1.1.2
+%       *   issue 21: Make compliant headings the default
+%       *   issue 22: Add convenience options for electronic/hardcopy
 %   Chris Monson (2009-11-20):
 %       *   Bumped version to 1.1.1
 %       *   issue 19: ms setting gives "no line here to end" errors
@@ -112,6 +116,8 @@
 \ProvidesClass{byumsphd}[2007/03/10 BYU LaTeX MS/PhD Class]
 %
 % Boolean option creation
+\newif\if@hardcopyoption % tells us that the hardcopy option was set
+\newif\if@electronicoption % tells us that the electronic option was set
 \newif\if@signaturepage % Signature pages are not present in electronic copies
 \newif\if@simplechapterheading % "1 Title" instead of "Chapter 1<nl>Title"
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
@@ -156,6 +162,8 @@
 
 %
 % This document can serve as either a PhD dissertation or a Master's thesis
+\DeclareOption{hardcopy}{\@hardcopytrue}
+\DeclareOption{electronic}{\@electronicoptiontrue}
 \DeclareOption{simplechapterheading}{\@simplechapterheadingtrue}
 \DeclareOption{compliantheadings}{\@compliantsizestrue}
 \DeclareOption{prettyheadings}{\@compliantsizesfalse}
@@ -188,6 +196,11 @@
 
 \setlength{\unitlength}{1in}
 %
+% Default to compliant heading sizes
+\@compliantsizestrue
+% Default to not using the convenience settings for hardcopy or ETD
+\@hardcopyoptionfalse
+\@electronicoptionfalse
 % Default to not showing a signature page (only for hardcopy)
 \@signaturepagefalse
 % Default to unequal margins (for binding)
@@ -210,9 +223,27 @@
     chapternum,
     chapterleft,
     partmiddle,
-    compliantheadings,
+    equalmargins,
+    oneside,
     }%
 \ProcessOptions
+%
+% Handle convenience settings
+\if@hardcopyoption
+    \if@electronicoption
+        \ClassError{byumsphd}{%
+            Invalid inclusion of both ``electronic'' and ``hardcopy''
+            in class options.}%
+    \fi
+    \@equalmarginsfalse
+    \@signaturepagetrue
+    \renewcommand{\@@sideval}{twoside}
+\fi
+\if@electronicoption
+    \@equalmarginstrue
+    \@signaturepagefalse
+    \renewcommand{\@@sideval}{oneside}
+\fi
 %
 % We base our work on the report class
 %
@@ -424,7 +455,7 @@
 % Set up default geometry specifications
 \geometry{top=1.0in,
           bottom=1.0in,
-          textwidth=6.0in,
+          textwidth=6.5in,
           hcentering,
           bindingoffset=\@bindingoffset}
 \if@equalmargins

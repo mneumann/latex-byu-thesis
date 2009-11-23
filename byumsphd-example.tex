@@ -1,18 +1,27 @@
-\documentclass[letterpaper,phd,chaptercenter,parttop,signaturepage,oneside]{byumsphd}
+\documentclass[phd,electronic,letterpaper,chaptercenter,parttop]{byumsphd}
 % Author: Chris Monson
 %
 % This document is in the public domain
 %
 % Options for this class include the following (* indicates default):
 %
+%   phd (*) -- produce a dissertation
+%   ms -- produce a thesis
+%
+%   electronic -- default convenience option, sets the following options:
+%                 - no signaturepage
+%                 - equalmargins
+%                 - oneside
+%   hardcopy -- convenience options, sets the following options:
+%                 - signaturepage
+%                 - no equalmargins
+%                 - twoside
+%
 %   letterpaper -- ignored, but helpful for the Makefile that I use
 %
 %   10pt -- 10 point font size
 %   11pt -- 11 point font size
 %   12pt (*) -- 12 point font size
-%
-%   phd (*) -- produce a dissertation
-%   ms -- produce a thesis
 %
 %   lof -- produce a list of figures in the preamble (off)
 %   lot -- produce a list of tables in the preamble (off)
@@ -32,13 +41,13 @@
 %   openany -- don't use this, it's ugly
 %
 %   prettyheadings -- make the section/chapter headings look nice
-%   compliantheadings -- make them look ugly, but compliant with standards
+%   compliantheadings (*) -- make them look ugly, but compliant with standards
 %
 %   chaptercenter -- center the chapter headings horizontally
-%   chapterleft -- place chapter headings on the left
+%   chapterleft (*) -- place chapter headings on the left
 %
 %   partmiddle -- Part headers are centered vertically, no other text on page
-%   parttop -- Part headers at top of page, other text expected
+%   parttop (*) -- Part headers at top of page, other text expected
 %
 %   signaturepage -- include a signature page in the front matter (typically
 %     only used for a bound hardcopy, since signatures won't show up in the
@@ -54,23 +63,16 @@
 %
 % EXAMPLES:
 %
-% To set up the thesis for an electronic copy, you should set the following options:
-%
-% equalmargins
-% oneside (optional - some people like to keep things two-sided so that page numbers don't get messed up - I know I do)
-%
-% For printing and binding, I suggest you do the following:
-%
-% Do NOT set equalmargins
-% twoside
-% signaturepage
-%
-% The rest is up to you.  To fiddle with margins, use the \settextwidth and \setbindingoffset macros, described below.
+% The rest is up to you.  To fiddle with margins, use the \settextwidth and
+% \setbindingoffset macros, described below.  I suggest that you
+% \settextwidth{6.0in} for better-looking output (otherwise you'll get 3/4-inch
+% margins after binding, which is sort of weird).  This will depend on the
+% opinions of the various dean/coordinator folks, though, so be sure to ask
+% them before embarking on a major formatting task.
 
-
-% This command fixes my particular printer, which starts 0.03 inches too low,
-% shifting the whole page down by that amount.  This shifts the document
-% content up so that it comes out right when printed.
+% The following command fixes my particular printer, which starts 0.03 inches
+% too low, shifting the whole page down by that amount.  This shifts the
+% document content up so that it comes out right when printed.
 %
 % Discovering this sort of behavior is best done by specifying the ``grid''
 % option in the class parameters above.  It prints a 1/2 inch grid on every
@@ -235,6 +237,8 @@ This class has several options that affect document output in various ways.  The
         \begin{itemize}
             \item \textbf{phd (default)}: Produce a dissertation
             \item \textbf{ms} Produce a thesis 
+            \item \textbf{electronic}: Make an ETD (sets equalmargins, oneside, no signaturepage)
+            \item \textbf{hardcopy}: Make bindable (sets no equalmargins, twoside, signaturepage)
         \end{itemize}
 \pagebreak
     \item Font Size:
