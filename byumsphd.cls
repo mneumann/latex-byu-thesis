@@ -38,9 +38,12 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.2
+% Version: 1.1.3
 %
 % Changelog:
+%   Chris Monson (2009-11-24):
+%       *   Bumped version to 1.1.3
+%       *   Fixed hardcopy option to work properly
 %   Chris Monson (2009-11-23):
 %       *   Bumped version to 1.1.2
 %       *   issue 21: Make compliant headings the default
