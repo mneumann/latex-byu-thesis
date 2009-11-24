@@ -162,7 +162,7 @@
 
 %
 % This document can serve as either a PhD dissertation or a Master's thesis
-\DeclareOption{hardcopy}{\@hardcopytrue}
+\DeclareOption{hardcopy}{\@hardcopyoptiontrue}
 \DeclareOption{electronic}{\@electronicoptiontrue}
 \DeclareOption{simplechapterheading}{\@simplechapterheadingtrue}
 \DeclareOption{compliantheadings}{\@compliantsizestrue}
