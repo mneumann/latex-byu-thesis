@@ -38,9 +38,13 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.3
+% Version: 1.1.4
 %
 % Changelog:
+%   Chris Monson (2009-12-17):
+%       *   Bumped version to 1.1.4
+%       *   Added documentation about how to add dot leaders to the TOC, fixed
+%           some spacing.
 %   Chris Monson (2009-11-24):
 %       *   Bumped version to 1.1.3
 %       *   Fixed hardcopy option to work properly

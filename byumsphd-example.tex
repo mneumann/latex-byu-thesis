@@ -101,6 +101,12 @@
     bookmarksnumbered=true,
     ]{hyperref}
 
+% If you want dot leaders on all TOC entries, you can do the following (example
+% covers chapters, there are similar settings for other headings: run "texdoc
+% tocloft" for more information).
+%\usepackage{tocloft}
+%\renewcommand{\cftchapleader}{\bfseries\cftdotfill{\cftdotsep}}
+
 % To fiddle with the margin settings use the below.  DO NOT change stuff
 % directly (like setting \textwidth) - it will break subtle things and you'll
 % be tearing your hair out.
@@ -128,9 +134,11 @@
 % binding offset gives the inner margin.  The outer margin is just what's left.
 %
 % All of this is done using the geometry package, which should be manipulated
-% directly at your peril.  It's best just to use the above macros to manipulate your margins.
+% directly at your peril.  It's best just to use the above macros to manipulate
+% your margins.
 %
-% That said, using the geometry macro to set top and bottom margins, or anything else vertical, is perfectly safe and encouraged, e.g.,
+% That said, using the geometry macro to set top and bottom margins, or
+% anything else vertical, is perfectly safe and encouraged, e.g.,
 %
 %\geometry{top=2.0in,bottom=2.0in}
 %
