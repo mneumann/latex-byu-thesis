@@ -38,9 +38,12 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.4
+% Version: 1.1.5
 %
 % Changelog:
+%   Chris Monson (2010-01-06):
+%       *   Bumped version to 1.1.5
+%       *   Removed tocloft documentation until it can be better supported
 %   Chris Monson (2009-12-17):
 %       *   Bumped version to 1.1.4
 %       *   Added documentation about how to add dot leaders to the TOC, fixed
