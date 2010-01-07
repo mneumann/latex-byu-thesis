@@ -129,6 +129,7 @@
 \newif\if@hardcopyoption % tells us that the hardcopy option was set
 \newif\if@electronicoption % tells us that the electronic option was set
 \newif\if@signaturepage % Signature pages are not present in electronic copies
+\newif\if@twosidetoc % Two-sided printing starts at TOC (earlier than body)
 \newif\if@simplechapterheading % "1 Title" instead of "Chapter 1<nl>Title"
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
 \newif\if@chapternum % for putting page numbers on part and chapter pages
@@ -198,6 +199,7 @@
 \DeclareOption{openright}{\renewcommand{\@@openval}{openright}}%
 \DeclareOption{openany}{\renewcommand{\@@openval}{openany}}%
 \DeclareOption{signaturepage}{\@signaturepagetrue}%
+\DeclareOption{twosidetoc}{\@twosidetoctrue}%
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
 \DeclareOption{11pt}{\renewcommand{\@@ptsize}{11pt}}%
 \DeclareOption{12pt}{\renewcommand{\@@ptsize}{12pt}}%
@@ -213,6 +215,8 @@
 \@electronicoptionfalse
 % Default to not showing a signature page (only for hardcopy)
 \@signaturepagefalse
+% Default to two-sided printing starting at the body (not TOC)
+\@twosidetocfalse
 % Default to unequal margins (for binding)
 \@equalmarginsfalse
 % Default to NOT indenting first paragraph, using normal chapter headings
@@ -751,17 +755,22 @@
 \fi
 %
 \newcommand{\@separatorpage}{%
-    \clearpage
-    \thispagestyle{empty}%
-    {\centering
-    \vspace*{\fill}
-    DISCARD THIS PAGE --- IT IS ONLY A MARKER\\
-    \vspace{3\@blankline}%
-    All preceding pages must be single-sided.\\
-    All subsequent pages must be double-sided.
-    \vspace*{\fill}
-    \par}% end centering
-    \newpage
+    \if@twoside
+        \if@separator
+            \clearpage
+            \thispagestyle{empty}%
+            \addtocounter{page}{-1}% Don't count this page
+            {\centering
+            \vspace*{\fill}
+            DISCARD THIS PAGE --- IT IS ONLY A MARKER\\
+            \vspace{3\@blankline}%
+            All preceding pages must be single-sided.\\
+            All subsequent pages must be double-sided.
+            \vspace*{\fill}
+            \par}% end centering
+            \newpage
+        \fi
+    \fi
 }%
 %
 % Lifted from report.cls and edited to be smaller
@@ -914,8 +923,21 @@
         \if@signaturepage
             \signaturepage
         \fi
+    }%
+    {%
+        \if@twosidetoc
+            % If we are beginning two-sided at the TOC, then the separator page
+            % belongs here (if anywhere).
+            \@separatorpage
+        \else
+            % Otherwise, we need to make our margins one-sided again in this
+            % block.
+            \if@equalmargins\else
+                \addtolength{\evensidemargin}{\@bindingoffset}%
+            \fi
+        \fi
+        \pagestyle{plain}%
         \begin{doublespace}%
-            \pagestyle{plain}%
             \tableofcontents
             \if@lof
                 \listoffigures
@@ -926,11 +948,11 @@
             \if@lol
                 \lstlistoflistings
             \fi
-        \if@twoside
-            \if@separator
+            \if@twosidetoc\else
+                % If we start two-sided printing after the various tables (body
+                % only), then we print the separator here.
                 \@separatorpage
             \fi
-        \fi
         \end{doublespace}%
     }%
     \end{singlespace}%

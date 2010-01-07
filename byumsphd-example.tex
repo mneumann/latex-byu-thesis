@@ -37,6 +37,13 @@
 %   oneside -- one-sided output (margins are the same on all pages)
 %   equalmargins -- make all margins equal - ugly for binding, but compliant
 %
+%   twosidetoc - start two-sided margins at the TOC instead of the body.  This
+%     is sometimes (oddly) required, but be aware that it will make the page
+%     numbering seem screwy, e.g., the first four full sheets of paper will
+%     have number i-iv (not shown, though), and the next sheets will each have
+%     two numbers, one for each side.  I suspect that most people don't look at
+%     the roman numerals anyway, but it is a weird requirement.
+%
 %   openright (*) -- force new chapters to start on an odd page
 %   openany -- don't use this, it's ugly
 %
@@ -260,6 +267,7 @@ This class has several options that affect document output in various ways.  The
             \item \textbf{equalmargins}: Make all margins equal - no binding offset
             \item \textbf{twoside (default)}: Alternate margins for even and odd pages
             \item \textbf{oneside}: One-sided document - margins don't alternate
+            \item \textbf{twosidetoc}: Start two-sided margins at the TOC, don't wait for the document body and arabic numerals to do it.  This is a strange requirement that I have seen in some places, especially strange since it means that the page numbering will change suddenly in the middle of the roman numerals (the first four full sheets might have numbers i-iv, but not printed, and the next sheets will each have two page numbers; most people probably won't notice, but it's still a weird requirement).
             \item \textbf{openright (default)}: Chapters start on an odd page
             \item \textbf{openany}: Chapters start anywhere (tip: don't use this)
             \item \textbf{duplexprinter}: If printing two-sided (to save trees while evaluating the state of things, for example), this ensures that a blank page is printed when necessary between the front matter and the first chapter, ensuring that the first chapter starts on the front of a sheet (the right side).  It is important to note that you should \emph{not} plan on using this to generate the final document.  Paper that is required for theses is typically much heavier and more opaque than paper you are going to have in your department printer.  Print everything one-sided so that text from the back of a page doesn't bleed through when getting copied for the final draft.  Here is how I suggest you print the final draft:
