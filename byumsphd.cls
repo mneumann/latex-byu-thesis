@@ -44,6 +44,7 @@
 %   Chris Monson (2010-01-06):
 %       *   Bumped version to 1.1.5
 %       *   Removed tocloft documentation until it can be better supported
+%       *   Added twosidetoc option to the class
 %   Chris Monson (2009-12-17):
 %       *   Bumped version to 1.1.4
 %       *   Added documentation about how to add dot leaders to the TOC, fixed
@@ -716,7 +717,11 @@
 }%
 %
 \renewcommand{\tableofcontents}{%
-    \clearpage
+    \if@twosidetoc
+        \clearpage@forchapter
+    \else
+        \clearpage
+    \fi
     \@@pdfbookmark[1]{Table of Contents}{toc}%
     \@tocheader{\contentsname}%
     \thispagestyle{plain}%
@@ -725,7 +730,11 @@
 }%
 %
 \renewcommand{\listoffigures}{%
-    \clearpage
+    \if@twosidetoc
+        \clearpage@forchapter
+    \else
+        \clearpage
+    \fi
     \refstepcounter{toclistings}
     \addcontentsline{toc}{chapter}{\listfigurename}
     \@tocheader{\listfigurename}%
@@ -734,7 +743,11 @@
 }%
 %
 \renewcommand{\listoftables}{%
-    \clearpage
+    \if@twosidetoc
+        \clearpage@forchapter
+    \else
+        \clearpage
+    \fi
     \refstepcounter{toclistings}
     \addcontentsline{toc}{chapter}{\listtablename}
     \@tocheader{\listtablename}%
@@ -745,7 +758,11 @@
 \if@lol
 \renewcommand{\lstlistlistingname}{List of Listings}
 \renewcommand{\lstlistoflistings}{%
-    \clearpage
+    \if@twosidetoc
+        \clearpage@forchapter
+    \else
+        \clearpage
+    \fi
     \refstepcounter{toclistings}
     \addcontentsline{toc}{chapter}{\lstlistlistingname}
     \@tocheader{\lstlistlistingname}%
