@@ -38,12 +38,15 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.6
+% Version: 1.1.7
 %
 % Changelog:
 %   Chris Monson (2010-03-10):
+%       *   Bumped version to 1.1.7
+%       *   issue 27: Added bib.bib to the distribution tarball
+%   Chris Monson (2010-03-10):
 %       *   Bumped version to 1.1.6
-%       *   Removed deprecated commands from example file
+%       *   issue 29: Removed deprecated commands from example file
 %   Chris Monson (2010-01-06):
 %       *   Bumped version to 1.1.5
 %       *   Removed tocloft documentation until it can be better supported

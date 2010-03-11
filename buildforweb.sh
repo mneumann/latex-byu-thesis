@@ -3,6 +3,7 @@
 files=(\
 byumsphd-example.tex \
 byumsphd.cls \
+bib.bib \
 )
 
 version=`sed \
