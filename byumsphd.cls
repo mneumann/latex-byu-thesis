@@ -41,6 +41,9 @@
 % Version: 1.1.5
 %
 % Changelog:
+%   Chris Monson (2010-03-10):
+%       *   Bumped version to 1.1.6
+%       *   Removed deprecated commands from example file
 %   Chris Monson (2010-01-06):
 %       *   Bumped version to 1.1.5
 %       *   Removed tocloft documentation until it can be better supported
@@ -88,7 +91,7 @@
 %   Chris Monson (2008-05-21):
 %       *   Bumped version to 1.0.9
 %   Lloyd Brown (Contrib) (2008-05-15):
-%       *   Added option for setting "Department" as in "Accepted for the 
+%       *   Added option for setting "Department" as in "Accepted for the
 %           Department" to something else
 %       *   Added option for setting "Graduate Coordinator" title to something
 %           else

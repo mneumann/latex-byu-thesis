@@ -154,8 +154,8 @@
 % out if these already exist.
 \newcommand{\Title}{BYU MS/PhD {\LaTeX} Class Dissertation Example}
 \newcommand{\Author}{Christopher K. Monson}
-\newcommand{\SubmissionMonth}{March}
-\newcommand{\SubmissionYear}{2006}
+\newcommand{\GraduationMonth}{March}
+\newcommand{\GraduationYear}{2006}
 
 % Set up the internal PDF information so that it becomes part of the document
 % metadata.  The pdfinfo command will display this.
@@ -163,7 +163,7 @@
     pdftitle=\Title,%
     pdfauthor=\Author,%
     pdfsubject={PhD Dissertation, BYU CS Department: %
-                Degree Granted \SubmissionMonth~\SubmissionYear, Document Created \today},%
+                Degree Granted \GraduationMonth~\GraduationYear, Document Created \today},%
     pdfkeywords={BYU, thesis, dissertation, LaTeX},%
 }
 
@@ -187,9 +187,9 @@
 \committeememberc{Attends~A.~Meeting}
 \committeememberd{Will~B.~Present}
 
-\monthsubmitted{\SubmissionMonth}
-\yearsubmitted{\SubmissionYear}
-\yearcopyrighted{\SubmissionYear}
+\monthgraduated{\GraduationMonth}
+\yeargraduated{\GraduationYear}
+\yearcopyrighted{\GraduationYear}
 
 \documentabstract{%
     This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.  It is meant to replace the old ECEn style file that has been circulating for many years.
@@ -245,7 +245,7 @@ This class has several options that affect document output in various ways.  The
     \item Document Type:
         \begin{itemize}
             \item \textbf{phd (default)}: Produce a dissertation
-            \item \textbf{ms} Produce a thesis 
+            \item \textbf{ms} Produce a thesis
             \item \textbf{electronic}: Make an ETD (sets equalmargins, oneside, no signaturepage)
             \item \textbf{hardcopy}: Make bindable (sets no equalmargins, twoside, signaturepage)
         \end{itemize}
@@ -309,13 +309,13 @@ In order to produce a correct preamble, several things must be set, and others c
     \item \verb|\committeememberb{<third member>}|
     \item \verb|\committeememberc{<fourth member (PhD only)>}|
     \item \verb|\committeememberd{<fifth member (PhD only)>}|
-    \item \verb|\monthsubmitted{<month of submission>}|
-    \item \verb|\yearsubmitted{<hopefully this year>}|
+    \item \verb|\monthgraduated{<month of graduation>}|
+    \item \verb|\yeargraduated{<hopefully this year>}|
     \item \verb|\documentabstract{<your thesis abstract goes here>}|
 \end{itemize}
 The following are optional or have defaults suitable for CS majors:
 \begin{itemize}
-    \item \verb|\yearcopyrighted{<defaults to year submitted>}|
+    \item \verb|\yearcopyrighted{<defaults to year graduated>}|
     \item \verb|\acknowledgments{<the text of your acknowledgments goes here>}|
     \item \verb|\university{<default: Brigham Young University>}|
     \item \verb|\department{<default: Computer Science>}|
