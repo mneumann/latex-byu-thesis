@@ -38,9 +38,12 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.7
+% Version: 1.1.8
 %
 % Changelog:
+%   Chris Monson (2010-10-08):
+%       *   Bumped version to 1.1.8
+%       *   issue 31: example needs plainpages=false in hyperref settings
 %   Chris Monson (2010-03-10):
 %       *   Bumped version to 1.1.7
 %       *   issue 27: Added bib.bib to the distribution tarball
