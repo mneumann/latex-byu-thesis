@@ -41,6 +41,10 @@
 % Version: 1.1.8
 %
 % Changelog:
+%   Chris Monson (2011-03-03):
+%       *   Bumped version to 1.1.9
+%       *   Subtitle now works properly
+%       *   Thanks to Oliver Kopp for microtype patch to the example file.
 %   Chris Monson (2010-10-08):
 %       *   Bumped version to 1.1.8
 %       *   issue 31: example needs plainpages=false in hyperref settings
@@ -1030,4 +1034,5 @@
     \doublespace
 }%
 %
+\newcommand{\@subtitle}{}
 % vim: ft=tex sw=4 sts=4

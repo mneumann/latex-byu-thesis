@@ -93,12 +93,12 @@
 % the electronic version clickable without changing the way that the document
 % prints.  It's useful, but optional.
 %
-% NOTE: if you use pdftex instead of latex + dvips + ps2pdf, then you need to
-% change the corresponding entry below (ps2pdf -> pdftex).  If you use my LaTeX
-% makefile (at http://latex-makefile.googlecode.com/) then ps2pdf is the right
-% way to go.  There are many other benefits to using the makefile, too.
+% NOTE: "driverfallback=ps2pdf" chooses ps2pdf in the case of LaTeX and pdftex
+% in the case of pdflatex. If you use my LaTeX makefile (at
+% http://latex-makefile.googlecode.com/) then pdftex is the default There are
+% many other benefits to using the makefile, too.
 \usepackage[
-    ps2pdf,
+    driverfallback=ps2pdf,
     bookmarks=true,
     bookmarksnumbered=true,
     breaklinks=false,
@@ -219,14 +219,18 @@
 % removal of widows and orphans.
 \raggedbottom
 
-% Get a little less fussy about word spacing on a line.  Sometimes produces
-% ugly results, so keep your eyes peeled.
-\sloppy
+% Produce nicely formatted paragraphs. There is nothing additional to do.  In
+% case you get some problems, surround your text with
+% \begin{sloppy} ... \end{sloppy}. If that does not work, try
+% \microtypesetup{protrusion=false} ... \microtypesetup{protrusion=true}
+\usepackage{microtype}
 
 \begin{document}
 
 % Produce the preamble
+\microtypesetup{protrusion=false}
 \maketitle
+\microtypesetup{protrusion=true}
 
 \chapter{Use of the ``byumsphd'' {\LaTeX} Class}
 
