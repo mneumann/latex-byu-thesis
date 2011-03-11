@@ -41,6 +41,12 @@
 % Version: 1.1.9
 %
 % Changelog:
+%   Chris Monson (2011-03-11):
+%       *   Bumped version to 1.2.0
+%       *   New university requirements, per issue 37 (no sig page, no margin
+%               shifting on electronic copies)
+%       *   Backed out addition of driverfallback option in example - it is not
+%               available on all systems.
 %   Chris Monson (2011-03-03):
 %       *   Bumped version to 1.1.9
 %       *   Subtitle now works properly
@@ -142,7 +148,6 @@
 % Boolean option creation
 \newif\if@hardcopyoption % tells us that the hardcopy option was set
 \newif\if@electronicoption % tells us that the electronic option was set
-\newif\if@signaturepage % Signature pages are not present in electronic copies
 \newif\if@twosidetoc % Two-sided printing starts at TOC (earlier than body)
 \newif\if@simplechapterheading % "1 Title" instead of "Chapter 1<nl>Title"
 \newif\if@thesis % generates \if@thesis, \@thesistrue, and \@thesisfalse
@@ -212,7 +217,6 @@
 \DeclareOption{equalmargins}{\@equalmarginstrue}%
 \DeclareOption{openright}{\renewcommand{\@@openval}{openright}}%
 \DeclareOption{openany}{\renewcommand{\@@openval}{openany}}%
-\DeclareOption{signaturepage}{\@signaturepagetrue}%
 \DeclareOption{twosidetoc}{\@twosidetoctrue}%
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
 \DeclareOption{11pt}{\renewcommand{\@@ptsize}{11pt}}%
@@ -227,8 +231,6 @@
 % Default to not using the convenience settings for hardcopy or ETD
 \@hardcopyoptionfalse
 \@electronicoptionfalse
-% Default to not showing a signature page (only for hardcopy)
-\@signaturepagefalse
 % Default to two-sided printing starting at the body (not TOC)
 \@twosidetocfalse
 % Default to unequal margins (for binding)
@@ -264,12 +266,10 @@
             in class options.}%
     \fi
     \@equalmarginsfalse
-    \@signaturepagetrue
     \renewcommand{\@@sideval}{twoside}
 \fi
 \if@electronicoption
     \@equalmarginstrue
-    \@signaturepagefalse
     \renewcommand{\@@sideval}{oneside}
 \fi
 %
@@ -533,14 +533,12 @@
 % Internal lengths with no external settings
 \newlength{\@assumedcharwidth}
 \newlength{\@defaultindent}
-\newlength{\@sigskip}
 \newlength{\@blankline}
 \newlength{\@prefacemargingapsingle}
 \newlength{\@prefacemargingapdouble}
 \setlength{\@assumedcharwidth}{6pt}
 \setlength{\@defaultindent}{6\@assumedcharwidth}
 \setlength{\@blankline}{\baselineskip}
-\setlength{\@sigskip}{1.5\@blankline}
 %
 % This is the margin gap between the top of the paper and single-spaced text.  It defines a margin that is a total of 2 inches from the top
 \setlength{\@prefacemargingapsingle}{1in}
@@ -554,78 +552,6 @@
 % the problem in these cases.
 
 %\end{doublespace}
-%
-% Definitions of signature primitives, like the size of the date rule and the
-% way that signatures are generally formatted.
-\newlength{\Datewidth}
-\newlength{\Sigwidth}
-\setlength{\Datewidth}{1.5in}
-\setlength{\Sigwidth}{3.8in}
-%
-\providecommand{\Signature}[1]{%
-    \noindent
-    \parbox[t]{\Datewidth}{%
-        \rule{\Datewidth}{0.4pt}\\Date%
-    }%
-    \hfill
-    \parbox[t]{\Sigwidth}{%
-        \rule{\Sigwidth}{0.4pt}\\{#1}%
-    }%
-    \par
-}
-%
-\providecommand{\SignaturePurpose}[2][Accepted]{%
-    \noindent
-    #1\\ \\%
-    \Signature{#2}%
-}
-%
-% Department signature page
-\newcommand{\signaturepage}{%
-    \clearpage
-    {\parindent 0pt%
-    {\centering
-        \begin{doublespace}%
-        \MakeUppercase{\@university}%
-        \vspace{2\@blankline}\par
-        SIGNATURE PAGE%
-        \vspace{2\@blankline}\par
-        of a {\@documenttype} submitted by\\%
-        \@author
-        \end{doublespace}%
-    \par}% end centering
-    \vspace{2\@blankline}\par
-    The {\@documenttype} of {\@author} is acceptable in its final form
-    including (1) its format, citations, and bibliographical style are
-    consistent and acceptable and fulfill university and department style
-    requirements; (2) its illustrative materials including figures, tables, and
-    charts are in place; and (3) the final manuscript is satisfactory and ready
-    for submission.
-    \vspace{3\@blankline}\par
-    \Signature{\@committeechair, Chair}%
-    \if@committeemembera
-        \vspace{\@sigskip}\par
-        \Signature{\@committeemembera}%
-    \fi
-    \if@committeememberb
-        \vspace{\@sigskip}\par
-        \Signature{\@committeememberb}%
-    \fi
-    \if@committeememberc
-        \vspace{\@sigskip}\par
-        \Signature{\@committeememberc}%
-    \fi
-    \if@committeememberd
-        \vspace{\@sigskip}\par
-        \Signature{\@committeememberd}%
-    \fi
-    \vspace{3\@sigskip}\par
-    \Signature{\@graduatecoordinator, \@graduatecoordinatortitle}%
-    \vspace{\@sigskip}\par
-    \Signature{\@collegedean, \@collegedeantitle, \@college}%
-    }% end parindent
-    \newpage
-}%
 %
 % Title page
 \renewcommand{\titlepage}{%
@@ -705,6 +631,10 @@
         \vfill\vfill\par\noindent
             Keywords: \@documentkeywords
         \vfill\par
+        \else
+            \ClassError{byumsphd}{%
+                Specification of document keywords is required.
+            }%
         \fi
     \end{singlespace}%
     \newpage
@@ -949,9 +879,6 @@
         \abstractpage
         \if@hasacknowledgments
             \acknowledgmentspage
-        \fi
-        \if@signaturepage
-            \signaturepage
         \fi
     }%
     {%
