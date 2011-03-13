@@ -270,7 +270,6 @@
 \fi
 \if@electronicoption
     \@equalmarginstrue
-    \renewcommand{\@@sideval}{oneside}
 \fi
 %
 % We base our work on the report class
