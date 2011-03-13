@@ -38,7 +38,7 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.1.9
+% Version: 1.2.0
 %
 % Changelog:
 %   Chris Monson (2011-03-11):
