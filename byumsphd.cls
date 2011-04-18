@@ -41,6 +41,11 @@
 % Version: 1.2.0
 %
 % Changelog:
+%   Chris Monson (2011-04-18):
+%       *   Bumped version to 1.2.1
+%       *   More clarity on shifting requirements for abstracts (issue 38).
+%       *   Made electronic option the default in the example file, clarified
+%               use of geometry package.
 %   Chris Monson (2011-03-11):
 %       *   Bumped version to 1.2.0
 %       *   New university requirements, per issue 37 (no sig page, no margin
@@ -233,8 +238,8 @@
 \@electronicoptionfalse
 % Default to two-sided printing starting at the body (not TOC)
 \@twosidetocfalse
-% Default to unequal margins (for binding)
-\@equalmarginsfalse
+% Default to equal margins
+\@equalmarginstrue
 % Default to NOT indenting first paragraph, using normal chapter headings
 \@simplechapterheadingfalse
 % Default to NOT showing lists of figures and tables
@@ -448,6 +453,7 @@
 % These are internal variables used throughout the class.  They represent
 % default values for their corresponding @-less versions.
 \newcommand{\@university}{Brigham Young University}
+\newcommand{\@universityabbrev}{BYU}
 \newcommand{\@department}{Computer Science}
 \newcommand{\@departmentprefix}{Department of}
 \newcommand{\@departmentprefixshort}{Department}
@@ -483,15 +489,17 @@
 \geometry{top=1.0in,
           bottom=1.0in,
           textwidth=6.5in,
-          hcentering,
-          bindingoffset=\@bindingoffset}
+          hcentering}
 \if@equalmargins
-    \geometry{bindingoffset=0in}%
+    \geometry{bindingoffset=0in}
+\else
+    \geometry{bindingoffset=\@bindingoffset}
 \fi
 %
 % Here are some things that can be set from inside the document.  Most of them
 % have suitable defaults.
 \newcommand{\university}[1]{\renewcommand{\@university}{#1}}
+\newcommand{\universityabbrev}[1]{\renewcommand{\@universityabbrev}{#1}}
 \newcommand{\department}[1]{\renewcommand{\@department}{#1}}
 \newcommand{\departmentprefix}[1]{\renewcommand{\@departmentprefix}{#1}}
 \newcommand{\departmentprefixshort}[1]{\renewcommand{\@departmentprefixshort}{#1}}
@@ -610,32 +618,31 @@
     {\centering
     \parindent 0pt%
     ABSTRACT%
-    \vspace{3\@blankline}\par
+    \vspace{1.2\@blankline}\par
     \parbox[t]{5in}{\centering
-        \begin{doublespace}%
-            \@title
-        \end{doublespace}%
+        \@title
     \par}% end parbox
-    \vspace{2\@blankline}\par
-    \begin{doublespace}%
-        {\@author}\\%
-        {\@departmentprefix} {\@department}\\%
-        \@degreename
-    \end{doublespace}%
-    \vspace{2\@blankline}\par
+    \vspace{1.2\@blankline}\par
+    {\@author}\\%
+    {\@departmentprefix} {\@department}, {\@universityabbrev}\\%
+    \@degreename
     \par}% end centering
-    \begin{singlespace}%
-        \@documentabstract
-        \if@hasdocumentkeywords
-        \vfill\vfill\par\noindent
-            Keywords: \@documentkeywords
-        \vfill\par
-        \else
-            \ClassError{byumsphd}{%
-                Specification of document keywords is required.
-            }%
-        \fi
-    \end{singlespace}%
+    {\setlength{\parskip}{\@blankline}\par
+    % parskip is applied at the beginning of paragraphs, so we add a bit of
+    % length here to make it the same as above.
+    \vspace{0.2\@blankline}\par
+    \@documentabstract
+    \par}
+    \if@hasdocumentkeywords
+    \vfill\par\noindent
+        Keywords: \@documentkeywords
+    \par
+    \par
+    \else
+        \ClassError{byumsphd}{%
+            Specification of document keywords is required.
+        }%
+    \fi
     \newpage
 }%
 %

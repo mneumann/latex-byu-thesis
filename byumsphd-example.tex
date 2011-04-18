@@ -1,4 +1,4 @@
-\documentclass[phd,hardcopy,twosidetoc,letterpaper,chaptercenter,parttop,lol,lof,lot]{byumsphd}
+\documentclass[phd,electronic,twosidetoc,letterpaper,chaptercenter,parttop,lol,lof,lot]{byumsphd}
 % Author: Chris Monson
 %
 % This document is in the public domain
@@ -8,10 +8,10 @@
 %   phd (*) -- produce a dissertation
 %   ms -- produce a thesis
 %
-%   electronic -- default official university option, sets the following:
+%   electronic -- default official university option, overrides the following:
 %                 - equalmargins
 %
-%   hardcopy -- sets the following:
+%   hardcopy -- overrides the following:
 %                 - no equalmargins
 %                 - twoside
 %
@@ -53,10 +53,6 @@
 %
 %   partmiddle -- Part headers are centered vertically, no other text on page
 %   parttop (*) -- Part headers at top of page, other text expected
-%
-%   signaturepage -- include a signature page in the front matter (typically
-%     only used for a bound hardcopy, since signatures won't show up in the
-%     electronic version for obvious reasons)
 %
 %   duplexprinter -- Ensures that the two-sided portion starts on the right
 %     side when printing.  This is not for use in submission, since the best
@@ -190,7 +186,9 @@
 \yearcopyrighted{\GraduationYear}
 
 \documentabstract{%
-    This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.  It is meant to replace the old ECEn style file that has been circulating for many years.
+This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.  It is meant to replace the old ECEn style file that has been circulating for many years.
+
+Note that there is a blank line between paragraphs, here.
 }
 
 \documentkeywords{%
@@ -248,8 +246,8 @@ This class has several options that affect document output in various ways.  The
         \begin{itemize}
             \item \textbf{phd (default)}: Produce a dissertation
             \item \textbf{ms} Produce a thesis
-            \item \textbf{electronic}: Make an ETD (sets equalmargins, oneside, no signaturepage)
-            \item \textbf{hardcopy}: Make bindable (sets no equalmargins, twoside, signaturepage)
+            \item \textbf{electronic}: Make an ETD (sets equalmargins, oneside)
+            \item \textbf{hardcopy}: Make bindable (sets no equalmargins, twoside)
         \end{itemize}
 \pagebreak
     \item Font Size:
