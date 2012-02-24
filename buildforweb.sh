@@ -3,6 +3,8 @@
 files=(\
 byumsphd-example.tex \
 byumsphd.cls \
+byuprop-example.tex \
+byuprop.cls \
 bib.bib \
 )
 
@@ -15,4 +17,4 @@ outputfile=latex-byu-thesis-$version.tar.gz
 
 echo Creating $outputfile
 
-tar czf $outputfile ${files[@]}
+tar -cz -C .. -f $outputfile ${files[@]/#/latex-byu-thesis/}
