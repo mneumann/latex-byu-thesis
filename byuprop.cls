@@ -1,9 +1,8 @@
 % BYU MS/PhD Proposal LaTeX Class File
-%   (version $Id:)
 %
 % Copyright (c) 2008 Daniel P. Delorey
 % The latest version of this file may be obtained from
-%   http:
+%   http://code.google.com/p/latex-byu-thesis/
 %
 % License: LaTeX Project Public License (www.latex-project.org/lppl.txt)
 %   Executive summary:
