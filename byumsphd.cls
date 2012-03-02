@@ -671,7 +671,7 @@
     \else
         \clearpage
     \fi
-    \@@pdfbookmark[1]{Table of Contents}{toc}%
+    \@@pdfbookmark[1]{\contentsname}{toc}%
     \@tocheader{\contentsname}%
     \thispagestyle{plain}%
     \@starttoc{toc}%
