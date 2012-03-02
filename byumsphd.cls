@@ -38,9 +38,13 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.2.1
+% Version: 1.2.2
 %
 % Changelog:
+%   Andrew McNabb (2012-03-02):
+%       *   Bumped version to 1.2.2
+%       *   Ensure the Table of Contents name in the PDF bookmarks matches.
+%       *   Work around a fatal error occuring with some versions of natbib.
 %   Chris Monson (2011-04-18):
 %       *   Bumped version to 1.2.1
 %       *   More clarity on shifting requirements for abstracts (issue 38).
