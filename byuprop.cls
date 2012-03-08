@@ -411,6 +411,6 @@
       \makesignature%
     \fi%
     \if@dissertation%
-    \  \makesignature%
+      \makesignature%
     \fi%
 }%
