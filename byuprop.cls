@@ -300,7 +300,7 @@
     \vspace*{\@prefacemargingapdouble}%
     \parbox[t]{5in}{\centering
         \begin{doublespace}%
-            \MakeUppercase{\@title}%
+            \@title%
         \end{doublespace}%
     \par}%
     \vfill
