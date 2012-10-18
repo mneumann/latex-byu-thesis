@@ -25,9 +25,12 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.0
+% Version: 1.1
 %
 % Changelog:
+%   Andrew McNabb (2012-10-09):
+%       *   Format the abstract page according to the dissertation class, and
+%           add example sections according to the department guidelines.
 %   Dan Delorey (2008-01-30):
 %       *   First reasonable release
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
@@ -193,6 +196,7 @@
 % These are internal variables used throughout the class.  They represent
 % default values for their corresponding @-less versions.
 \newcommand{\@university}{Brigham Young University}
+\newcommand{\@universityabbrev}{BYU}
 \newcommand{\@department}{Computer Science}
 \newcommand{\@departmentprefix}{Department of}
 \newcommand{\@graduatecoordinator}{}
@@ -203,6 +207,7 @@
 \newcommand{\@committeememberd}{}
 \newcommand{\@monthsubmitted}{}
 \newcommand{\@yearsubmitted}{}
+\newcommand{\@documentabstract}{}
 
 % Here are some things that can be set from inside the document.  Most of them
 % have suitable defaults.
@@ -217,6 +222,7 @@
 \newcommand{\committeememberd}[1]{\renewcommand{\@committeememberd}{#1}}
 \newcommand{\monthsubmitted}[1]{\renewcommand{\@monthsubmitted}{#1}}
 \newcommand{\yearsubmitted}[1]{\renewcommand{\@yearsubmitted}{#1}}
+\newcommand{\documentabstract}[1]{\renewcommand{\@documentabstract}{#1}}
 
 % Internal commands with no external settings
 \newlength{\@assumedcharwidth}
@@ -331,6 +337,31 @@
     \newpage
 }%
 
+% Abstract page
+\newcommand{\abstractpage}{%
+    \clearpage
+    \@@pdfbookmark[1]{Abstract}{abstract}%
+    {\centering
+    \parindent 0pt%
+    ABSTRACT%
+    \vspace{1.2\@blankline}\par
+    \parbox[t]{5in}{\centering
+        \@title
+    \par}% end parbox
+    \vspace{1.2\@blankline}\par
+    {\@author}\\%
+    {\@departmentprefix} {\@department}, {\@universityabbrev}\\%
+    \@degreename
+    \par}% end centering
+    {\setlength{\parskip}{\@blankline}\par
+    % parskip is applied at the beginning of paragraphs, so we add a bit of
+    % length here to make it the same as above.
+    \vspace{0.2\@blankline}\par
+    \@documentabstract
+    \par}
+    \newpage
+}%
+
 % Lifted from report.cls and edited to be smaller
 % NOTE that the minimum standards document indicates that ALL fonts should be
 % 10, 11, or 12 point *including titles and headings*.  This requirement is
@@ -357,9 +388,11 @@
 
 \renewcommand{\maketitle}{%
     \begin{singlespace}%
+    \pagenumbering{roman}%
     {%
         \pagestyle{empty}%
         \titlepage
+        \abstractpage
     }%
     \end{singlespace}%
     % Body starts here

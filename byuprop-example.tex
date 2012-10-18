@@ -8,7 +8,7 @@
 %   ms -- produce a thesis proposal (off)
 %   areaexam -- produce a research area overview (off)
 %   phd -- produce a dissertation proposal (off)
-%   
+%
 %   layout -- show layout lines on the pages, helps with overfull boxes (off)
 %   grid -- show a half-inch grid on every page, helps with printing (off)
 
@@ -27,10 +27,10 @@
 
 % Here we set things up for invisible hyperlinks in the document.  This makes
 % the electronic version clickable without changing the way that the document
-% prints.  It's useful, but optional.  Note that if you use pdflatex, you
-% should change "ps2pdf" to "pdftex".
+% prints.  It's useful, but optional.  Note that if you use latex instead of
+% pdflatex, you should change "pdftex" to "ps2pdf".
 \usepackage[
-    ps2pdf,
+    pdftex,
     bookmarks=true,
     breaklinks=true,
     raiselinks=true,
@@ -58,10 +58,10 @@
 % Because I use these things in more than one place, I created new commands for
 % them.  I did not use \providecommand because I absolutely want LaTeX to error
 % out if these already exist.
-\newcommand{\Title}{}
-\newcommand{\Author}{}
-\newcommand{\SubmissionMonth}{}
-\newcommand{\SubmissionYear}{}
+\newcommand{\Title}{BYU MS/PhD {\LaTeX} Proposal Class Example}
+\newcommand{\Author}{Daniel P. Delorey}
+\newcommand{\SubmissionMonth}{January}
+\newcommand{\SubmissionYear}{2008}
 
 % Take these from the commands defined above
 \title{\Title}
@@ -70,14 +70,21 @@
 \yearsubmitted{\SubmissionYear}
 
 % Committee members
-\committeechair{}
-\committeemembera{}
-\committeememberb{}
-\committeememberc{}
-\committeememberd{}
+\committeechair{Esteem~D.~Adviser}
+\committeemembera{Has~A.~Thought}
+\committeememberb{Wants~A.~Change}
+\committeememberc{Attends~A.~Meeting}
+\committeememberd{Will~B.~Present}
 
 % Department graduate coordinator
-\graduatecoordinator{Parris K. Egbert}
+\graduatecoordinator{Dan~Ventura}
+
+\documentabstract{%
+% The proposal abstract should be 1 to 2 paragraphs.
+This document is an example of how to use the byuprop {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.
+
+Note that there is a blank line between paragraphs, here.
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -105,11 +112,56 @@
 % Produce the preamble
 \maketitle
 
-% Put your content here %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+% 1-2 pages
+% Answers:
+% 1) What problem do you want to solve?
+% 2) Who cares about this problem and why?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Research Area Overview}
+% Research Area Overview
+% Describes the broad research area (citing the 20 most important papers)
+% Should be about 3 pages and may be in the Introduction or Related Work
+% sections or may be an appendix.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Research-Related Work}
+% Related Work
+% 1-2 pages
+% Answers:
+% 3) What have others done to solve this problem and why is this inadequate?
+%    (only a small overlap with the area exam from the introduction)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Thesis Statement}
+% 1 to 2 sentences
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Project Description}
+% about 6-8 pages
+% Answers:
+% 4) What is your proposed solution to this problem?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Validation}
+% 1-2 pages
+% Answers:
+% 5) How can you demonstrate that this is a good solution?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Thesis Schedule}
+% about 1/2 page
+% specifying dates for completion of major milestones, including potential
+% papers and their submission dates
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Change these to reflect the bibliography style and bibtex database file you want to use
 \bibliographystyle{}
 \bibliography{}
