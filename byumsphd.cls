@@ -38,9 +38,12 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.2.2
+% Version: 1.3
 %
 % Changelog:
+%   Andrew McNabb (2012-03-02):
+%       *   Bumped version to 1.3
+%       *   Make abstracts in the byuprop class match the byumsphd class.
 %   Andrew McNabb (2012-03-02):
 %       *   Bumped version to 1.2.2
 %       *   Ensure the Table of Contents name in the PDF bookmarks matches.
