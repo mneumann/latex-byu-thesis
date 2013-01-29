@@ -43,8 +43,9 @@
 \newif\if@needdrawing % Need the eso-pic environment?  Drawing something?
 \newif\if@layout % This will draw lines showing all the margins
 \newif\if@grid % Show a grid
+\newif\if@doublespacing % Use double-spaced lines
 
-\newcommand{\@@ptsize}{12pt}
+\newcommand{\@@ptsize}{11pt}
 
 % This is an empty no-op command in case pdfbookmark is not defined (hyperref
 % not included)
@@ -93,6 +94,8 @@
       {You used the phd option after using the areaexam option}%
   \fi%
   \@dissertationtrue}
+\DeclareOption{singlespacing}{\@doublespacingfalse}
+\DeclareOption{doublespacing}{\@doublespacingtrue}
 \DeclareOption{layout}{\@needdrawingtrue \@layouttrue}
 \DeclareOption{grid}{\@needdrawingtrue \@gridtrue}
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
@@ -106,6 +109,9 @@
 \@areaexamfalse
 \@dissertationfalse
 
+% Default to single-spacing.
+\@doublespacingfalse
+
 % Don't show the layout, usually
 \@needdrawingfalse
 \@layoutfalse
@@ -117,12 +123,15 @@
 \LoadClass[\@@ptsize]{article}
 
 % Rather than fiddle with spacing, we set it up using the setspace package
-% Note that even though most of the document is double spaced, we start with
+% Note that even if most of the document is double spaced, we start with
 % single spacing because of the following reasons:
 %  * setspace likes to *enlarge* the spacing, not shrink it
 %  * the minimum style requirements dictate vertical spacing as a number of
 %   ``blank lines'', and the size of those lines is single-spaced.
-\RequirePackage[singlespacing]{setspace}
+\RequirePackage{setspace}
+% Note that the setspace package reads the "doublespacing" option if specified
+% as a documentclass option, so we need to explicitly set single-spacing.
+\singlespacing
 
 % The geometry package is great and we use it rather than fiddling with the
 % margins directly.  We do have to employ some margin-fiddling trickery after
@@ -436,7 +445,9 @@
     % Set up double spacing---this is safe because the overall document is
     % single-spaced and we'll set up single spacing as the default in maketitle
     % where spacing matters.
-    \doublespace%
+    \if@doublespacing%
+        \doublespacing%
+    \fi%
 }%
 
 \AtEndDocument{%
