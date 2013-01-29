@@ -25,9 +25,12 @@
 % send those to the author as well so that this class has a single point of
 % distribution and all may benefit.
 %
-% Version: 1.1
+% Version: 1.2
 %
 % Changelog:
+%   Andrew McNabb (2013-01-29):
+%       *   Change to 11 pt and single-spacing by default in response to
+%           changes in the CS Department guidelines.
 %   Andrew McNabb (2012-10-09):
 %       *   Format the abstract page according to the dissertation class, and
 %           add example sections according to the department guidelines.
