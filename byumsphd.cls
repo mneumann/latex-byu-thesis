@@ -42,7 +42,8 @@
 %
 % Changelog:
 %   Andrew McNabb (2013-06-05):
-%       *   issue 48: change monthgraduated to monthapproved
+%       *   Change monthgraduated to monthapproved (issue 48)
+%       *   Make the electronic option set openany (issue 48)
 %   Andrew McNabb (2012-03-02):
 %       *   Bumped version to 1.4
 %       *   Change to 11 pt and single spacing in the byuprop class.
@@ -287,6 +288,7 @@
 \fi
 \if@electronicoption
     \@equalmarginstrue
+    \renewcommand{\@@sideval}{openany}
 \fi
 %
 % We base our work on the report class
