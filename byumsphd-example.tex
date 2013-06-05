@@ -151,16 +151,14 @@
 % out if these already exist.
 \newcommand{\Title}{BYU MS/PhD {\LaTeX} Class Dissertation Example}
 \newcommand{\Author}{Christopher K. Monson}
-\newcommand{\GraduationMonth}{March}
-\newcommand{\GraduationYear}{2006}
 
 % Set up the internal PDF information so that it becomes part of the document
 % metadata.  The pdfinfo command will display this.
 \hypersetup{%
     pdftitle=\Title,%
     pdfauthor=\Author,%
-    pdfsubject={PhD Dissertation, BYU CS Department: %
-                Degree Granted \GraduationMonth~\GraduationYear, Document Created \today},%
+    pdfsubject={PhD Dissertation, BYU CS Department. %
+                Document Created \today},%
     pdfkeywords={BYU, thesis, dissertation, LaTeX},%
 }
 
@@ -184,9 +182,12 @@
 \committeememberc{Attends~A.~Meeting}
 \committeememberd{Will~B.~Present}
 
-\monthgraduated{\GraduationMonth}
-\yeargraduated{\GraduationYear}
-\yearcopyrighted{\GraduationYear}
+% The month and year approved refer to the date that the college dean approver
+% signs ADV Form 8D.  You do not want to know what Jen will do if you get this
+% wrong.
+\monthapproved{March}
+\yearapproved{2006}
+%\yearcopyrighted{\ApprovedYear}
 
 \documentabstract{%
 This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.
@@ -315,13 +316,13 @@ In order to produce a correct preamble, several things must be set, and others c
     \item \verb|\committeememberb{<third member>}|
     \item \verb|\committeememberc{<fourth member (PhD only)>}|
     \item \verb|\committeememberd{<fifth member (PhD only)>}|
-    \item \verb|\monthgraduated{<month of graduation>}|
-    \item \verb|\yeargraduated{<hopefully this year>}|
+    \item \verb|\monthapproved{<month of defense>}|
+    \item \verb|\yearapproved{<hopefully this year>}|
     \item \verb|\documentabstract{<your thesis abstract goes here>}|
 \end{itemize}
 The following are optional or have defaults suitable for CS majors:
 \begin{itemize}
-    \item \verb|\yearcopyrighted{<defaults to year graduated>}|
+    \item \verb|\yearcopyrighted{<defaults to year approved>}|
     \item \verb|\acknowledgments{<the text of your acknowledgments goes here>}|
     \item \verb|\university{<default: Brigham Young University>}|
     \item \verb|\department{<default: Computer Science>}|

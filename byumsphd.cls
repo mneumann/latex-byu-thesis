@@ -41,6 +41,8 @@
 % Version: 1.4
 %
 % Changelog:
+%   Andrew McNabb (2013-06-05):
+%       *   issue 48: change monthgraduated to monthapproved
 %   Andrew McNabb (2012-03-02):
 %       *   Bumped version to 1.4
 %       *   Change to 11 pt and single spacing in the byuprop class.
@@ -477,9 +479,9 @@
 \newcommand{\@committeememberb}{}
 \newcommand{\@committeememberc}{}
 \newcommand{\@committeememberd}{}
-\newcommand{\@monthgraduated}{}
-\newcommand{\@yeargraduated}{}
-\newcommand{\@yearcopyrighted}{\@yeargraduated}
+\newcommand{\@monthapproved}{}
+\newcommand{\@yearapproved}{}
+\newcommand{\@yearcopyrighted}{\@yearapproved}
 \newcommand{\@copyrighttext}{All Rights Reserved}
 %
 \newcommand{\@documentabstract}{}
@@ -523,10 +525,10 @@
 \newcommand{\committeememberb}[1]{\@committeememberbtrue\renewcommand{\@committeememberb}{#1}}
 \newcommand{\committeememberc}[1]{\@committeememberctrue\renewcommand{\@committeememberc}{#1}}
 \newcommand{\committeememberd}[1]{\@committeememberdtrue\renewcommand{\@committeememberd}{#1}}
-\newcommand{\monthsubmitted}[1]{\ClassWarning{byumsphd}{monthsubmitted is deprecated - use monthgraduated instead}\monthgraduated{#1}}% TODO: delete this
-\newcommand{\yearsubmitted}[1]{\ClassWarning{byumsphd}{yearsubmitted is deprecated - use yeargraduated instead}\yeargraduated{#1}}% TODO: delete this
-\newcommand{\monthgraduated}[1]{\renewcommand{\@monthgraduated}{#1}}
-\newcommand{\yeargraduated}[1]{\renewcommand{\@yeargraduated}{#1}}
+\newcommand{\monthgraduated}[1]{\ClassWarning{byumsphd}{monthsubmitted is deprecated - use monthapproved instead}\monthapproved{#1}}% TODO: delete this
+\newcommand{\yeargraduated}[1]{\ClassWarning{byumsphd}{yearsubmitted is deprecated - use yearapproved instead}\yearapproved{#1}}% TODO: delete this
+\newcommand{\monthapproved}[1]{\renewcommand{\@monthapproved}{#1}}
+\newcommand{\yearapproved}[1]{\renewcommand{\@yearapproved}{#1}}
 \newcommand{\yearcopyrighted}[1]{\renewcommand{\@yearcopyrighted}{#1}}
 \newcommand{\copyrighttext}[1]{\renewcommand{\@copyrighttext}{#1}}
 %
@@ -609,7 +611,7 @@
         \begin{doublespace}%
             {\@departmentprefix} {\@department} \\%
             \@university\\%
-            {\@monthgraduated} {\@yeargraduated}%
+            {\@monthapproved} {\@yearapproved}%
         \end{doublespace}%
     \vspace*{\fill}%
     \begin{doublespace}
