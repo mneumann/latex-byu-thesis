@@ -38,10 +38,11 @@
 % \let\old@openbib@code\@openbib@code
 % \renewcommand{\@openbib@code}{\addcontentsline{toc}{chapter}{\bibname}\old@openbib@code}
 %
-% Version: 1.4
+% Version: 1.5
 %
 % Changelog:
 %   Andrew McNabb (2013-06-05):
+%       *   Bump version to 1.5
 %       *   Change monthgraduated to monthapproved (issue 48)
 %       *   Make the electronic option set openany (issue 48)
 %   Andrew McNabb (2012-03-02):
