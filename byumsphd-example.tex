@@ -148,6 +148,18 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{hypernat}
 
+% This package allows us to include appendices. Note that there is a known
+% issue with the package that requires we use \input rather than \include.
+% Example usage in the appropriate place in the document would be:
+% \begin{appendices}
+%   \input{chapters/seq-exp/seq-exp}
+%   \input{chapters/multiann/multianncc}
+% \end{appendices}
+%
+% Uncomment this line to load the package:
+% \usepackage[toc]{appendix}
+
+
 % Because I use these things in more than one place, I created new commands for
 % them.  I did not use \providecommand because I absolutely want LaTeX to error
 % out if these already exist.
