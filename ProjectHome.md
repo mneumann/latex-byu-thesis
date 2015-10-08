@@ -1,0 +1,3 @@
+This class file fulfills the requirements for Computer Science Masters and PhD theses at BYU.  It also has some very nice features that have to do with the entire printing and submission process, including hyperlinks, an interstitial page that shows where one-sided printing ends and two-sided begins, and the ability to print a grid on the page that helps with margin verification on whatever printer you happen to be using.
+
+The class is clean and well-commented, making it easy to extend and use.  Lots of options are provided, as well as an example file that serves both as a reference thesis and the documentation for how to use the class.
